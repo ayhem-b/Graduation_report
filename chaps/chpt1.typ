@@ -8,7 +8,7 @@
 /* ------------------------------------------------------------------------------ */ 
 
 #heading(level: 2, numbering: none)[Introduction]
-#lorem(32)
+#lorem(16)
 
 == Section 1#set text(font: "Buenard")
 
