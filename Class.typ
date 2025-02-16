@@ -71,7 +71,7 @@
   */
 
   // --- Paragraphs ---
-  show par: set block(spacing: 1.5em)
+  set par(spacing: 1.5em)
   set par(leading: 1em, justify: true)
 
   // --- Figures ---

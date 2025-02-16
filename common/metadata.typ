@@ -1,6 +1,6 @@
 // Enter your project data here:
 #let title = "Computerized Maintenance Management System"
-#let titre = "Titre"
+#let titre = "IIOT Solution"
 #let diploma = "License"
 #let program = "Electrical Engineering"
 #let supervisor = "Mr Mhamdi Abdelbacet"
@@ -23,5 +23,5 @@ I would also like to thank my professors and classmates at ISET Bizerte for thei
 #let resume = lorem(128)
 #let abstract = lorem(128)
 
-#let motscles = "rapport, pfe, typst"
-#let keywords = "report, capstone, typst"
+#let motscles = "IIOT,PLC,CMMS,HTML,PYTHON,CSS,TYPST"
+#let keywords = "IIOT,PLC,CMMS,HTML,PYTHON,CSS,TYPST"

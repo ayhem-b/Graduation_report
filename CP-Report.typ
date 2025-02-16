@@ -29,7 +29,7 @@
 )
 
 #pagebreak()
-#place(bottom + right, box(width: 256pt, text(emph(dedication))))
+#place(bottom + right, box(width: 280pt, text(emph(dedication))))
 
 #set page(header: none)
 #chap("Acknowledgements", notAck: false)

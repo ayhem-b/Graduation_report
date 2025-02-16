@@ -43,6 +43,8 @@
   
   v(8mm)
   align(center, text(font: sans-font, 1.6em, weight: 702, title))
+   v(1mm)
+  align(center, text(font: sans-font, 1.6em, weight: 702,titre))
 
   pad(
     top: 3em,
