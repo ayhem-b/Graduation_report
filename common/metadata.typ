@@ -1,6 +1,6 @@
 // Enter your project data here:
 #let title = "Computerized Maintenance Management System"
-#let titre = "IIOT Solution"
+#let titre = "SCADA System"
 #let diploma = "License"
 #let program = "Electrical Engineering"
 #let supervisor = "Mr Mhamdi Abdelbacet"
