@@ -77,7 +77,7 @@ The integration of SCADA-based fault reporting with a CMMS web application offer
 
 *By combining SCADA monitoring with CMMS-based maintenance tracking, this project creates a complete maintenance solution that enhances industrial efficiency and reliability.*
 
-/ @chp:chap1: #lorem(16)
-/ @chp:chap2: #lorem(16)
-/ @chp:chap3: #lorem(16)
+// @chp:chap1: #lorem(16)
+// @chp:chap2: #lorem(16)
+// @chp:chap3: #lorem(16)
 

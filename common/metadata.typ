@@ -23,5 +23,5 @@ I would also like to thank my professors and classmates at ISET Bizerte for thei
 #let resume = lorem(128)
 #let abstract = lorem(128)
 
-#let motscles = "IIOT,PLC,CMMS,HTML,PYTHON,CSS,TYPST"
-#let keywords = "IIOT,PLC,CMMS,HTML,PYTHON,CSS,TYPST"
+#let motscles = "IIOT,SCADA,PLC,CMMS,HTML,PYTHON,CSS,TYPST"
+#let keywords = "IIOT,SCADA,PLC,CMMS,HTML,PYTHON,CSS,TYPST"
