@@ -4,7 +4,7 @@
 #show: report.with(isAbstract: false)
 #set page(header: none)
 #figure(chap("General Introduction"), supplement: [Chapter], numbering: none) // GI
-#set page(header: smallcaps(title) + h(1fr) + emph("General Introduction") + line(length: 100%))
+#set page(header: smallcaps(chap_name) + h(1fr) + emph("General Introduction") + line(length: 100%))
 #set heading(level: 2, outlined: false)
 /* ------------------------------------------------------------------------------ */
 // Provide an introduction to your capstone project, including its objectives and significance.
@@ -75,7 +75,8 @@ The integration of SCADA-based fault reporting with a CMMS web application offer
 + Improved Decision-Making: Data visualization and historical records help optimize maintenance strategies.
 + Reduced Downtime & Costs: Faster fault resolution improves equipment availability and reduces repair costs.
 
-*By combining SCADA monitoring with CMMS-based maintenance tracking, this project creates a complete maintenance solution that enhances industrial efficiency and reliability.*
+_By combining SCADA monitoring with CMMS-based maintenance 
+racking, this project creates a complete maintenance solution that enhances industrial efficiency and reliability._
 
 // @chp:chap1: #lorem(16)
 // @chp:chap2: #lorem(16)

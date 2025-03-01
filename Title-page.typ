@@ -29,7 +29,7 @@
   
   // --- Title Page ---
 
-  v(15mm)
+  v(1mm)
   align(center, text(font: sans-font, 1.25em, weight: 100, "Ministry of Higher Education and Scientific Research, Tunisia"))
 
   v(10mm)
@@ -37,17 +37,21 @@
 
   v(5mm)
   align(center, image("Logo-ISETBZ.png", width: 25%))
-  v(15mm)
+  v(5mm)
 
   align(center, text(font: sans-font, 1.3em, weight: 100, diploma + " in " + program))
   
-  v(8mm)
-  align(center, text(font: sans-font, 1.6em, weight: 702, title))
+  v(1mm)
+  align(center, text(font: sans-font, 1.6em, weight: 602, title))
    v(1mm)
   align(center, text(font: sans-font, 1.6em, weight: 702,titre))
-
-  pad(
-    top: 3em,
+   v(1mm)
+   
+  align(center, image("Lear_logo.png", width: 25%))
+  v(5mm)
+//---------- centring names----
+  align( center,pad(
+    top: 2em,
     right: 15%,
     left: 15%,
     grid(
@@ -59,7 +63,7 @@
       
     ,
     )
-  )
+  ))
 
   pagebreak()
 

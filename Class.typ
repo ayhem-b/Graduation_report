@@ -33,7 +33,7 @@
 
   // --- Set the document's geometric properties. ---
   set page(
-    margin: (left: 30mm, right: 30mm, top: 40mm, bottom: 40mm),
+    margin: (left: 20mm, right: 20mm, top: 20mm, bottom: 20mm),
     number-align: center,
   )
 
@@ -72,7 +72,15 @@
 
   // --- Paragraphs ---
   set par(spacing: 1.5em)
-  set par(leading: 1em, justify: true)
+  set par( justify: true)
+
+
+  // --- adding first line indent ---
+   set par(first-line-indent: (
+  amount: 1.5em,
+  all: true,
+  ))
+
 
   // --- Figures ---
   show figure: set text(size: 0.85em)
