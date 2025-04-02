@@ -19,14 +19,13 @@ The goal is to create a seamless connection between fault detection (SCADA) and 
 
 == Project Objectives
 
-This project aims to design and implement an integrated SCADA and CMMS-based maintenance management system, focusing on the following objectives:
+This project is focusing on the following objectives:
 
 + Developing an HMI-based fault reporting system that allows operators to report machine faults with a simple interface.
 + Integrating the system with an S7-1200 PLC to collect fault data and trigger automated maintenance alerts.
 + Establishing a communication link between the SCADA system and the CMMS web application to log and manage reported faults.
-+ Implementing a notification system that sends automated alerts (SMS or email) to maintenance personnel.
++ Implementing a notification system that sends automated alerts (SMS) to maintenance personnel.
 + Providing real-time dashboards and historical records in the CMMS application for improved decision-making and maintenance planning.
-
 == Detailed Description
 
 === SCADA-Based HMI Fault Reporting System
@@ -47,8 +46,7 @@ The first component of this project is the SCADA-based fault reporting system, d
   - The SCADA system provides real-time monitoring and displays fault trends.
 
 === CMMS (GMAO) Web Application & Integration
-
-The second component of the project is the CMMS (GMAO) web application, which provides advanced maintenance management features. This system is developed using Django for the backend, React for the frontend, and PostgreSQL for the database. The integration between SCADA and CMMS ensures that all fault reports are automatically managed and tracked. The CMMS system works as follows:
+The second component of the project is the CMMS (GMAO) web application, which provides advanced maintenance management features.The CMMS system works as follows:
 + Automatic Fault Logging:
   - When an operator reports a fault on the HMI, it is automatically recorded in the CMMS database.
   - The maintenance team can view real-time fault alerts on the CMMS dashboard.
@@ -65,20 +63,12 @@ The second component of the project is the CMMS (GMAO) web application, which pr
   - All maintenance actions are stored in the CMMS for future analysis.
     - The system generates reports for preventive maintenance planning.
 
-=== Significance of the Project
 
-The integration of SCADA-based fault reporting with a CMMS web application offers several key advantages:
 
-+ Real-Time Fault Reporting: Operators can report faults instantly from the HMI, reducing response time.
-+ Automated Notifications: Maintenance teams receive immediate alerts via SMS or email.
-+ Centralized Maintenance Management: All faults and work orders are logged in a single platform.
-+ Improved Decision-Making: Data visualization and historical records help optimize maintenance strategies.
-+ Reduced Downtime & Costs: Faster fault resolution improves equipment availability and reduces repair costs.
+*By combining SCADA monitoring with CMMS-based maintenance 
+racking, this project creates a complete maintenance solution that enhances industrial efficiency and reliability.*
 
-_By combining SCADA monitoring with CMMS-based maintenance 
-racking, this project creates a complete maintenance solution that enhances industrial efficiency and reliability._
 
-// @chp:chap1: #lorem(16)
-// @chp:chap2: #lorem(16)
-// @chp:chap3: #lorem(16)
-
+/ @chp:chap1: This chapter introduces the company, outlines the project context, identifies the problem, and specifies the project requirements.
+/ @chp:chap2: #lorem(16)
+/ @chp:chap3: #lorem(16)

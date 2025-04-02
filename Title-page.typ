@@ -29,26 +29,21 @@
   
   // --- Title Page ---
 
-  v(1mm)
+  
   align(center, text(font: sans-font, 1.25em, weight: 100, "Ministry of Higher Education and Scientific Research, Tunisia"))
-
   v(10mm)
   align(center, text(font: sans-font, 1.25em, weight: 100, "Institute of Technological Studies of Bizerte"))
-
   v(5mm)
-  align(center, image("Logo-ISETBZ.png", width: 25%))
+  align(center, image("/chaps/images/Logo-ISETBZ.png", width: 25%))
   v(5mm)
-
   align(center, text(font: sans-font, 1.3em, weight: 100, diploma + " in " + program))
-  
   v(1mm)
   align(center, text(font: sans-font, 1.6em, weight: 602, title))
-   v(1mm)
+  v(1mm)
   align(center, text(font: sans-font, 1.6em, weight: 702,titre))
-   v(1mm)
-   
-  align(center, image("Lear_logo.png", width: 25%))
-  v(5mm)
+  v(1mm)
+  align(center, image("/chaps/images/Lear_logo.png", width: 25%))
+  
 //---------- centring names----
   align( center,pad(
     top: 2em,
