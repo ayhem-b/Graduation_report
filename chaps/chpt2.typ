@@ -8,7 +8,7 @@
 /* ------------------------------------------------------------------------------ */ 
 
 #heading(level: 2, numbering: none)[Introduction]
-This chapter presents the design and architecture of the *CMMS-SCADA integration* project. It provides an overview of the system components, their interactions, and the underlying technologies used in the implementation.
+The main goal of this project's design is to create an organized and effective system that guarantees the smooth operation and integration of different parts. An overview of the system architecture, key elements, workflow, and technology is given in this chapter. In line with the project's goals, the design strategy seeks to achieve dependability, scalability, and usability.
 
 == introduction
 this is a paragraph

@@ -4,16 +4,16 @@
 #set page(header: none)
 #figure(chap(chap1, numbering: "1."), kind: "chapter", supplement: "Chapter") <chp:chap1> // Chapter 1
 #set page(header: smallcaps(chap_name) + h(1fr) + emph(chap1) + line(length: 100%))
-#set heading(outlined: true, numbering: "1.") 
-/* ------------------------------------------------------------------------------ */ 
+#set heading(outlined: true, numbering: "1.")
+/* ------------------------------------------------------------------------------ */
 
 #heading(level: 2, numbering: none)[Introduction]
-In this chapter, we will present the company first, then we will present the project context,problem and the requirements of the project.
-== Lear company 
+in this chapter, we will present the company first, then we will present the project context,problem and the requirements of the project.
+== Lear company
 Lear Corporation is a global leader in automotive seating and electrical systems, serving major automakers worldwide. With a history dating back over a century, the company has established itself as a crucial player in the automotive industry, continuously innovating to meet the evolving demands of modern vehicles.
 
 #figure(
-  image("images/lear_logo.png", width: 50%),
+  image("images/Lear.png", width: 50%),
   caption: "LEAR Corporation logo",
 )
 
@@ -24,15 +24,19 @@ Key milestones in Lear's history include:
 #figure(
   table(
     columns: (auto, auto),
-    [1960s-1970s], [Expansion into automotive seating and interior systems.],  [1988], [ Renamed Lear Corporation after a series of acquisitions and restructuring.],
-    [1994],[Became a publicly traded company, listed on the New York Stock Exchange.],
-    [2000s],[Strategic acquisitions, including United   Technologies' Automotive unit, strengthened its position in electrical systems.],
-    [2010s-Present],[Focused on innovation, sustainability, and intelligent seating technologies, with significant investments in research and development.],
+    [1960s-1970s], [Expansion into automotive seating and interior systems.],
+    [1988], [ Renamed Lear Corporation after a series of acquisitions and restructuring.],
+    [1994], [Became a publicly traded company, listed on the New York Stock Exchange.],
+    [2000s],
+    [Strategic acquisitions, including United Technologies' Automotive unit, strengthened its position in electrical systems.],
+
+    [2010s-Present],
+    [Focused on innovation, sustainability, and intelligent seating technologies, with significant investments in research and development.],
   ),
   caption: "Lear's history timeline",
 )
 == Products and Services
-Lear  Corporation operates under two major business segments: Seating and E-Systems.
+Lear Corporation operates under two major business segments: Seating and E-Systems.
 === Seating
 #figure(
   image("images/seat.png", width: 15%),
@@ -89,7 +93,7 @@ Lear Corporation has several facilities in Tunisia, including:
 - Menzel Bourguiba Plant: Involved in assembly, wiring systems, and quality control.
 
 - Bizerte Industrial Complex: Opened in 2023, this facility is expected to employ over 7,000 workers by 2027, focusing on advanced automotive technologies.
-  
+
 === Economic Impact
 Lear’s investment in Tunisia has provided employment opportunities, skill development, and technology transfer. The company’s presence has also contributed to the local economy by supporting suppliers, logistics companies, and infrastructure development.
 == Problem Statement
@@ -99,7 +103,7 @@ Since the Menzel Bourguiba plant is a new facility, it lacks an efficient mainte
 - Manual Communication of Alerts: Machine errors are reported through inefficient methods, causing delays in intervention.
 - Limited Data Analysis: There is no real-time access to historical maintenance data, making it difficult to optimize preventive and predictive maintenance strategies.
 - Production Downtime: Unplanned machine failures result in costly production stoppages and inefficiencies.
-==  Proposed Solution
+== Proposed Solution
 To address these challenges, the project proposes a CMMS-SCADA integration that provides:
 
 - A centralized digital platform for managing maintenance requests, work orders, and intervention history.
@@ -108,9 +112,9 @@ To address these challenges, the project proposes a CMMS-SCADA integration that 
 - Historical data analysis and reporting, enabling predictive maintenance strategies and improved decision-making.
 - Seamless integration with PLC systems (S7-1200) to ensure automated fault detection and quick response mechanisms.
 - User-friendly HMI interfaces for operators to report faults and monitor machine statuses.
-  
+
 _By implementing this system at Lear Corporation, the factory can significantly enhance its maintenance efficiency, reduce unplanned downtime, and improve overall operational performance._
 
 #heading(level: 2, numbering: none)[Conclusion]
-This chapter establishes the foundation of the project by outlining Lear Corporation's background, identifying key maintenance challenges, and presenting the proposed 
+This chapter establishes the foundation of the project by outlining Lear Corporation's background, identifying key maintenance challenges, and presenting the proposed
 CMMS-SCADA solution. The subsequent chapters will delve deeper into the design, implementation, and evaluation of the integrated system, highlighting its benefits and potential impact on Lear's operations.
