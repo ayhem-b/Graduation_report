@@ -22,6 +22,11 @@ The system consists of multiple interconnected modules that work together to ach
 
 - Communication Layer: A Cp module to send SMS to maintenance staff and a VB Script to send Data from the SCADA systeme to the Database.
 
+#figure(
+  image("images/interaction.png", width: 50%),
+  caption: "The interaction between the different modules",
+)
+
 == Main Components
 - Frontend: A user-friendly interface developed using HTML, CSS, JavaScript, and Bootstrap, allowing operators to interact with the system.
 
