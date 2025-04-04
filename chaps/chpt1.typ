@@ -113,7 +113,7 @@ To address these challenges, the project proposes a CMMS-SCADA integration that 
 - Seamless integration with PLC systems (S7-1200) to ensure automated fault detection and quick response mechanisms.
 - User-friendly HMI interfaces for operators to report faults and monitor machine statuses.
 
-_By implementing this system at Lear Corporation, the factory can significantly enhance its maintenance efficiency, reduce unplanned downtime, and improve overall operational performance._
+By implementing this system at Lear Corporation, the factory can significantly enhance its maintenance efficiency, reduce unplanned downtime, and improve overall operational performance.
 
 #heading(level: 2, numbering: none)[Conclusion]
 This chapter establishes the foundation of the project by outlining Lear Corporation's background, identifying key maintenance challenges, and presenting the proposed
