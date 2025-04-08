@@ -19,8 +19,8 @@ The system consists of multiple interconnected modules that work together to ach
 - Software Layer: A web-based GMAO (Gestion de Maintenance Assistée par Ordinateur) application built using Django.
 
 - Database Layer: A PostgreSQL database to store and manage data efficiently.
-
 - Communication Layer: A Cp module to send SMS to maintenance staff and a VB Script to send Data from the SCADA systeme to the Database.
+
 
 #figure(
   image("images/interaction.png", width: 50%),
