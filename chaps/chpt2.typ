@@ -3,13 +3,28 @@
 #show: report.with(isAbstract: false)
 #set page(header: none)
 #figure(chap(chap2, numbering: "1."), kind: "chapter", supplement: "Chapter") <chp:chap2> // Chapter 2
-#set page(header: smallcaps(chap_name) + h(1fr) + emph(chap2) + line(length: 100%))
+#set page(header:[
+  #set text(10pt)
+  #smallcaps(title) 
+  #h(1fr) 
+  #emph(chap2) 
+  #line(length: 100%)])
 #set heading(outlined: true, numbering: "1.") 
 /* ------------------------------------------------------------------------------ */ 
 
 #heading(level: 2, numbering: none)[Introduction]
 The main goal of this project's design is to create an organized and effective system that guarantees the smooth operation and integration of different parts. An overview of the system architecture, key elements, workflow, and technology is given in this chapter. In line with the project's goals, the design strategy seeks to achieve dependability, scalability, and usability.
+==  Technologies Used
 
+- Frontend: HTML, CSS, JavaScript for an interactive user experience.
+
+- Backend: Django (Python) for handling data logic and system processes.
+
+- Database: PostgreSQL for structured and efficient data storage.
+
+- Industrial Communication: VBScript within WinCC Runtime Professional to enable machine-to-database communication.
+
+- SCADA: WinCC Runtime Professional for real-time machine monitoring and operator interaction.
 == System Architecture
 
 The system consists of multiple interconnected modules that work together to achieve the desired functionality. It includes:
@@ -23,7 +38,7 @@ The system consists of multiple interconnected modules that work together to ach
 
 
 #figure(
-  image("images/interaction.png", width: 50%),
+  image("images/interaction.png", width: 70%),
   caption: "The interaction between the different modules",
 )
 
@@ -34,7 +49,7 @@ The system consists of multiple interconnected modules that work together to ach
 
 - Database: PostgreSQL is used to store user information, work orders, fault logs, and intervention records.
 
-- SCADA Integration: The S7-1200 PLC handles the comunucation task, while WinCC Runtime Professional is used for SCADA visualization.
+- SCADA Integration: The S7-1200 PLC handles the comunucation task, while WinCC Runtime Professional is used for SCADA visualization of the factory machines.
 
 - PLC Integration: The S7-1200 PLC monitors machine states and detects faults in real time. These faults trigger data transmission via VBScript.
 
@@ -43,7 +58,7 @@ The system consists of multiple interconnected modules that work together to ach
 - Fault Notification System: Once fault data is recorded in the database, the Django backend processes it and updates the web interface. This allows maintenance teams to respond promptly and resolve issues efficiently.
   
 #figure(
-  image("images/ERD.png", width: 50%),
+  image("images/ERD.png", width: 70%),
   caption: "The ERD of the database",
 ) 
 === Workflow

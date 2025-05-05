@@ -3,17 +3,21 @@
 #show: report.with(isAbstract: false)
 #set page(header: none)
 #figure(chap(chap1, numbering: "1."), kind: "chapter", supplement: "Chapter") <chp:chap1> // Chapter 1
-#set page(header: smallcaps(chap_name) + h(1fr) + emph(chap1) + line(length: 100%))
+#set page(header:[
+  #set text(10pt)
+  #smallcaps(title) 
+  #h(1fr) 
+  #emph(chap1) 
+  #line(length: 100%)])
 #set heading(outlined: true, numbering: "1.")
 /* ------------------------------------------------------------------------------ */
 
 #heading(level: 2, numbering: none)[Introduction]
 in this chapter, we will present the company first, then we will present the project context,problem and the requirements of the project.
 == Lear company
-Lear Corporation is a global leader in automotive seating and electrical systems, serving major automakers worldwide. With a history dating back over a century, the company has established itself as a crucial player in the automotive industry, continuously innovating to meet the evolving demands of modern vehicles.
-
+Lear Corporation is a world leader in the automotive technology industry, specializing in the complex design and lean manufacturing of seating solutions and electrical distribution systems. Lear has a massive employee base of over 170,000 committed workers, who are dispersed in a whopping total of 38 countries worldwide. Lear proudly services almost every major automaker in the world.
 #figure(
-  image("images/Lear.png", width: 50%),
+  image("images/Lear.png", width: 40%),
   caption: "LEAR Corporation logo",
 )
 
@@ -53,7 +57,7 @@ Lear is one of the world's leading manufacturers of complete automotive seat sys
 - Seating Electronics: Integration of climate control, massage functions, and safety features.
 === E-System
 #figure(
-  image("images/e-system.jpeg", width: 50%),
+  image("images/e-system.jpeg", width: 40%),
   caption: "E-system fo lear corporation",
 )
 
@@ -73,7 +77,8 @@ Lear Corporation operates in 39 countries with more than 257 locations worldwide
   image("images/map.png", width: 40%),
   caption: "LEAR implantation in the world",
 )
-
+ 
+ #pagebreak()
 - United States: Headquarters in Southfield, Michigan, and several manufacturing plants.
 
 - Mexico: A major production center for automotive seating and wiring systems.
@@ -82,7 +87,7 @@ Lear Corporation operates in 39 countries with more than 257 locations worldwide
 
 - China & India: Growing markets for electric and connected vehicle technologies.
 == Lear Corporation in Tunisia
-Tunisia has become an essential manufacturing hub for Lear Corporation, providing cost-effective production capabilities and a skilled workforce. Lear's operations in Tunisia are part of its broader strategy to strengthen its footprint in North Africa and Europe.
+Over the last few years, Tunisia has increasingly become an important and strategically located production base for Lear, mainly due to the availability of a highly qualified and skilled workforce, competitively low and affordable costs of production, and its geographical location in very close proximity to Europe. Due to these favorable factors, the company has been able to set up and is now running several plants in the country.
 
 === Tunisian Facilities
 
@@ -94,27 +99,33 @@ Lear Corporation has several facilities in Tunisia, including:
 
 - Bizerte Industrial Complex: Opened in 2023, this facility is expected to employ over 7,000 workers by 2027, focusing on advanced automotive technologies.
 
-=== Economic Impact
-Lear’s investment in Tunisia has provided employment opportunities, skill development, and technology transfer. The company’s presence has also contributed to the local economy by supporting suppliers, logistics companies, and infrastructure development.
-== Problem Statement
-Since the Menzel Bourguiba plant is a new facility, it lacks an efficient maintenance management.
-- Lack of Centralized Monitoring: Machines operate independently without a unified interface for tracking performance and errors.
-- Delayed Fault Detection and Reporting: Maintenance personnel are often unaware of failures until they escalate into major issues.
-- Manual Communication of Alerts: Machine errors are reported through inefficient methods, causing delays in intervention.
-- Limited Data Analysis: There is no real-time access to historical maintenance data, making it difficult to optimize preventive and predictive maintenance strategies.
-- Production Downtime: Unplanned machine failures result in costly production stoppages and inefficiencies.
-== Proposed Solution
-To address these challenges, the project proposes a CMMS-SCADA integration that provides:
 
-- A centralized digital platform for managing maintenance requests, work orders, and intervention history.
-- SCADA system allowing operators and maintenance teams to visualize all the machines statuses on a single screen.
-- Automated error alerts (SMS) sent to designated maintenance personnel when faults are detected.
-- Historical data analysis and reporting, enabling predictive maintenance strategies and improved decision-making.
-- Seamless integration with PLC systems (S7-1200) to ensure automated fault detection and quick response mechanisms.
-- User-friendly HMI interfaces for operators to report faults and monitor machine statuses.
+== Problem Statement
+The Menzel Bourguiba facility, which shows growth and modernization,experiences standard beginning challenges in its new  manufacturing operations.
+
+Plant visits alongside worker interviews confirmed that the facility's maintenance management systems remained paper-based without any digital  transformation. The maintenance teams received machine fault reports exclusively through paper documentation while the operators provided verbal fault information.
+
+The  operational difficulties result in decreased production efficiency and longer response times and worsened equipment durability throughout the  lifecycle.
+== Proposed Solution
+The proposed solution to the problems listed above would address them through the use of a Web-Based IIoT Monitoring System with an in-house tailored GMAO (CMMS) module. The proposed system is to be deployed on one prototype sorting machine, with simulation of the real-world factory environment in the Menzel Bourguiba factory.
+
+By showing the integration of Siemens S7-1200 PLC, edge communication using Python, and maintenance portal using Django, the project has immediate applicability to Lear's broader Industry 4.0 vision:
+
+#pagebreak()
+
+- Improve fault visibility and response time,
+
+- Reduce machine downtime,
+
+- Enable data-driven maintenance planning,
+
+- Provide a low-cost, scalable alternative to SCADA systems.
 
 By implementing this system at Lear Corporation, the factory can significantly enhance its maintenance efficiency, reduce unplanned downtime, and improve overall operational performance.
 
 #heading(level: 2, numbering: none)[Conclusion]
-This chapter establishes the foundation of the project by outlining Lear Corporation's background, identifying key maintenance challenges, and presenting the proposed
-CMMS-SCADA solution. The subsequent chapters will delve deeper into the design, implementation, and evaluation of the integrated system, highlighting its benefits and potential impact on Lear's operations.
+This chapter provides the context to the project by tracing the history of Lear Corporation,
+identification of the major maintenance issues, and offering the suggested Webapp solution.
+
+The Later chapters provide further details regarding the design, execution, and evaluation of the combined
+system, its merits, and how it can benefit Lear's business.

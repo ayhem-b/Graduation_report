@@ -10,7 +10,8 @@
 #heading(level: 2, numbering: none)[Introduction]
 #lorem(32)
 
-== Section 1
+== design
+
 #lorem(16)
 === Subsection 1.1
 #lorem(64)

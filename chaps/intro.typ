@@ -4,71 +4,36 @@
 #show: report.with(isAbstract: false)
 #set page(header: none)
 #figure(chap("General Introduction"), supplement: [Chapter], numbering: none) // GI
-#set page(header: smallcaps(chap_name) + h(1fr) + emph("General Introduction") + line(length: 100%))
+#set page(header:[
+  #set text(10pt)
+  #smallcaps(title) 
+  #h(1fr) 
+  #emph("General Introduction") 
+  #line(length: 100%)])
 #set heading(level: 2, outlined: false)
 /* ------------------------------------------------------------------------------ */
 // Provide an introduction to your capstone project, including its objectives and significance.
 
-== Context & Motivations
+== Background
 
-In industrial environments, unplanned equipment failures and inefficient maintenance processes can lead to significant downtime, production losses, and increased operational costs. Traditional maintenance management often relies on manual fault reporting and reactive interventions, which result in delayed responses and ineffective resource allocation. To address these challenges, digital maintenance solutions have been increasingly adopted, combining SCADA systems with CMMS (GMAO) applications to provide real-time fault monitoring, automated reporting, and optimized maintenance workflows.
+While Industry 4.0 is developing at a fast pace, industrial systems are increasingly connected by the Industrial Internet of Things (IIoT). The technologies are designed to digitalize production environments in order to enable real-time monitoring, predictive maintenance, and data-driven decision-making.
 
-A SCADA (Supervisory Control and Data Acquisition) system enables real-time monitoring and control of industrial machines and processes. However, most SCADA systems lack a structured maintenance management component, making it difficult to track reported issues and ensure timely interventions. To overcome this limitation, this project focuses on developing an HMI-based fault reporting system integrated with a CMMS web application.
+In most small to medium-sized manufacturing plants, machine monitoring is mostly reactive in nature, thus resulting in delays in fault detection and manual recording of maintenance procedures. Although conventional SCADA systems provide extensive monitoring functionality, they usually have a high cost, are beset by complexity in deployment, and may not be adequately customized to meet the unique requirements of each and every plant.
 
-The goal is to create a seamless connection between fault detection (SCADA) and maintenance management (CMMS). This integration will allow operators to report faults directly from an HMI (Human-Machine Interface), automatically notify maintenance teams, and track issue resolution within the CMMS system. The motivation behind this project is to streamline maintenance operations, reduce equipment downtime, and improve the efficiency of industrial maintenance teams.
+This project is motivated by the necessity to create an economical and versatile IIoT system capable of real-time monitoring and integration with a maintenance platform (CMMS/GMAO) for better responsiveness and efficiency.
 
-== Project Objectives
+== Motivation
+At Lear Corporation's Menzel Bourguiba factory, one use case stood out as being especially important and highly relevant: it was a sorting machine that had a number of faults and malfunctions. In addition, and arguably even more importantly, the production data of this machine were not being tracked in real time. This lack of immediate and granular trend data on the performance of the machine gave rise to a host of issues and challenges. Among these issues were the following:
 
-This project is focusing on the following objectives:
+  - The fault-finding process and instituting required interventions have been greatly postponed.
 
-+ Developing an HMI-based fault reporting system that allows operators to report machine faults with a simple interface.
-+ Integrating the system with an S7-1200 PLC to collect fault data and trigger automated maintenance alerts.
-+ Establishing a communication link between the SCADA system and the CMMS web application to log and manage reported faults.
-+ Implementing a notification system that sends automated alerts (SMS) to maintenance personnel.
-+ Providing real-time dashboards and historical records in the CMMS application for improved decision-making and maintenance planning.
-== Detailed Description
+  - The manual process of logging faults and scheduling maintenance activities
 
-=== SCADA-Based HMI Fault Reporting System
+  - There has been a total lack of any analysis of historical data when it comes to predictive or preventive maintenance.
 
-The first component of this project is the SCADA-based fault reporting system, developed using WinCC Runtime Professional for the HMI, an S7-1200 PLC for signal processing, and a communication processor (CP) module for SMS notifications. The fault reporting process follows these steps:
-
-+ Fault Detection & Reporting via HMI:
-  - The operator selects the affected machine on the HMI interface.
-  - A fault report form appears, allowing the operator to describe the issue.
-  - The reported fault is logged into the system and sent to the PLC.
-
-+ Automated Fault Notification:
-  - The PLC processes the input and sends a command to the CP module.
-  - The CP module sends an SMS notification to the maintenance team.
-
-+ Data Logging & Visualization:
-  - All reported faults are stored in a centralized database.
-  - The SCADA system provides real-time monitoring and displays fault trends.
-
-=== CMMS (GMAO) Web Application & Integration
-The second component of the project is the CMMS (GMAO) web application, which provides advanced maintenance management features.The CMMS system works as follows:
-+ Automatic Fault Logging:
-  - When an operator reports a fault on the HMI, it is automatically recorded in the CMMS database.
-  - The maintenance team can view real-time fault alerts on the CMMS dashboard.
-
-+ Work Order Generation & Assignment:
-  - The CMMS system generates a work order for each reported fault.
-  - The maintenance manager assigns the work order to a technician.
-
-+ Maintenance Follow-Up & Resolution:
-  - The technician updates the status of the fault (e.g., "In Progress", "Resolved").
-  - Once the fault is resolved, the SCADA system updates the machine status.
-
-+ Historical Data & Preventive Maintenance:
-  - All maintenance actions are stored in the CMMS for future analysis.
-    - The system generates reports for preventive maintenance planning.
-
-
-
-*By combining SCADA monitoring with CMMS-based maintenance 
-racking, this project creates a complete maintenance solution that enhances industrial efficiency and reliability.*
+To properly address and overcome these current limitations, it became clear that a new, web-enabled platform was imperative one that would have the ability to interface natively with the Siemens S7-1200 PLC, which operates the sorting machine. Further, this platform would need to have the ability to report and visualize key operational data and any faults that occur, all in a highly accessible format on an all-encompassing web dashboard.
 
 
 / @chp:chap1: This chapter introduces the company, outlines the project context, identifies the problem, and specifies the project requirements.
-/ @chp:chap2: #lorem(16)
+/ @chp:chap2: An overview of the system architecture, key elements, workflow, and technology is given in this chapter
 / @chp:chap3: #lorem(16)
