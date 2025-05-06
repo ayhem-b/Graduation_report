@@ -3,44 +3,150 @@
 #show: report.with(isAbstract: false)
 #set page(header: none)
 #figure(chap(chap2, numbering: "1."), kind: "chapter", supplement: "Chapter") <chp:chap2> // Chapter 2
-#set page(header:[
-  #set text(10pt)
-  #smallcaps(title) 
-  #h(1fr) 
-  #emph(chap2) 
-  #line(length: 100%)])
-#set heading(outlined: true, numbering: "1.") 
-/* ------------------------------------------------------------------------------ */ 
+#set page(
+  header: [
+    #set text(10pt)
+    #smallcaps(title)
+    #h(1fr)
+    #emph(chap2)
+    #line(length: 100%)],
+)
+#set heading(outlined: true, numbering: "1.")
+/* ------------------------------------------------------------------------------ */
 
 #heading(level: 2, numbering: none)[Introduction]
 The main goal of this project's design is to create an organized and effective system that guarantees the smooth operation and integration of different parts. An overview of the system architecture, key elements, workflow, and technology is given in this chapter. In line with the project's goals, the design strategy seeks to achieve dependability, scalability, and usability.
-==  Technologies Used
+== Hardware Architecture
+=== Sorting Machine Prototype
+The system is built around a functional prototype of a sorting machine that classifies parts based on physical characteristics such as color and height. The machine includes:
 
-- Frontend: HTML, CSS, JavaScript for an interactive user experience.
+#set list(indent: 1.5cm, spacing: 0.5cm)
 
-- Backend: Django (Python) for handling data logic and system processes.
+- Sensors:
 
-- Database: PostgreSQL for structured and efficient data storage.
+  - Color sensor
 
-- Industrial Communication: VBScript within WinCC Runtime Professional to enable machine-to-database communication.
+  - Height detection sensor
 
-- SCADA: WinCC Runtime Professional for real-time machine monitoring and operator interaction.
-== System Architecture
+  - Position or presence sensors
 
-The system consists of multiple interconnected modules that work together to achieve the desired functionality. It includes:
+- Actuators:
 
-- Hardware Layer: Comprising industrial machines, CP-1242-7 V2(Communication module for the plc), and PLC(Programmable Logic Controllers) for automation and real-time data acquisition.
+  - Pneumatic or motorized sorters
 
-- Software Layer: A web-based GMAO (Gestion de Maintenance Assistée par Ordinateur) application built using Django.
+  - Conveyor motor
 
-- Database Layer: A PostgreSQL database to store and manage data efficiently.
-- Communication Layer: A Cp module to send SMS to maintenance staff and a VB Script to send Data from the SCADA systeme to the Database.
+  - Indicator lights (LEDs)
+
+- Controller:
+
+  - Siemens S7-1200 PLC
+
+#align(
+  center,
+  block[
+    #set align(left)
+    #highlight("mention the schema in the annex of the report.")
+  ],
+)
+
+=== PLC I/O Setup
+
+#align(
+  center,
+  block[
+    #set align(left)
+    #highlight("table of input and output of the PLC")
+  ],
+)
+=== HMI
+Hmi panel
+=== Pc
+pc A,B and C
+=== Communucation
+#figure(
+  image("images/chaart.png", width: 50%),
+  caption: "The interaction between the different modules",
+)
+== Software Architecture
+The software system is split into three main layers:
+#figure(
+  image("images/interaction.png", width: 50%),
+  caption: "The interaction between the different modules",
+)
+
+=== Plc Layer
+#set list(indent: 1.5cm, spacing: 0.5cm)
+- Controls sorting logic (e.g., sensor detection → sorting action)
+
+- Stores runtime variables (e.g., part count, status codes) in a Data Block (DB)
+
+- Assigns fault codes based on operating conditions (e.g., sensor errors, jammed parts)
+=== Edge Communication Layer
+This component bridges the PLC and web application using:
+
+#set list(indent: 1.5cm, spacing: 0.5cm)
+- Python + Snap7 library
+
+  - Periodically reads data from DB1 in the PLC
+
+  - Formats the data as JSON
+
+  - Sends it to the web app via a REST API
+
+- Node-RED (alternative visual programming tool)
+
+  - Uses the s7 node to read PLC values
+
+  - Sends updates to the web app
+
+
+    ```python
+    import snap7
+    import requests
+
+    plc = snap7.client.Client()
+    plc.connect('192.168.0.1', 0, 1)
+
+    while True:
+        part_count = plc.db_read(1, 0, 2)
+        status_code = plc.db_read(1, 2, 2)
+        data = {
+            "machine_id": "sorter01",
+            "part_count": int.from_bytes(part_count, 'big'),
+            "status_code": int.from_bytes(status_code, 'big')
+        }
+        requests.post("http://your-web-app/api/machine-data/", json=data)
+    ```
+=== Web Application Layer (Django)
+The Django app provides:
+#set list(indent: 1.5cm, spacing: 0.5cm)
+- API endpoints for receiving data (/api/machine-data/)
+
+- Database models for storing machine status, faults, and - maintenance logs
+
+- User dashboard to visualize real-time data using Chart.js or other libraries
+
+- GMAO module for managing work orders, interventions, and maintenance history
+
+=== PostgreSQL Database
+The PostgreSQL database is structured to store various data types, including user information, work orders, fault logs, and intervention records. The database schema is designed to ensure data integrity and efficient querying.
+== Data Flow Diagram
+#figure(
+  image("images/workfolw.png", width: 50%),
+  caption: "The interaction between the different modules",
+)
+== REST API Structure
 
 
 #figure(
-  image("images/interaction.png", width: 70%),
-  caption: "The interaction between the different modules",
-)
+  table(
+    columns: (auto, auto, auto),
+    [*Endpoint*], [*Method*], [*Description*], [$"/api/machine-data/"$], [$"POST"$], [$"Receives machine data from PLC"$],
+  ),
+  caption: "API structure",
+  ) <tab:api-structure>
+
 
 == Main Components
 - Frontend: A user-friendly interface developed using HTML, CSS, JavaScript, and Bootstrap, allowing operators to interact with the system.
@@ -56,11 +162,11 @@ The system consists of multiple interconnected modules that work together to ach
 - Data Transmission Mechanism: VBScript is embedded within WinCC Runtime Professional to extract machine data and insert it directly into the PostgreSQL database. The script is triggered by events such as machine failures or specific operator actions.
 
 - Fault Notification System: Once fault data is recorded in the database, the Django backend processes it and updates the web interface. This allows maintenance teams to respond promptly and resolve issues efficiently.
-  
+
 #figure(
   image("images/ERD.png", width: 70%),
   caption: "The ERD of the database",
-) 
+)
 === Workflow
 The workflow of the system is designed to ensure seamless communication between the hardware and software components. The process can be summarized as follows:
 1. Data Acquisition: The PLC continuously monitors the machines and detects any faults or anomalies.
@@ -75,7 +181,7 @@ The workflow of the system is designed to ensure seamless communication between 
   caption: "The workflow of the system",
 )
 
-==  Technologies Used
+== Technologies Used
 
 - Frontend: HTML, CSS, JavaScript for an interactive user experience.
 
