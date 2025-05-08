@@ -16,6 +16,24 @@
 
 #heading(level: 2, numbering: none)[Introduction]
 The main goal of this project's design is to create an organized and effective system that guarantees the smooth operation and integration of different parts. An overview of the system architecture, key elements, workflow, and technology is given in this chapter. In line with the project's goals, the design strategy seeks to achieve dependability, scalability, and usability.
+== Technologies Used
+
+- Frontend: HTML, CSS, JavaScript for an interactive user experience.
+
+- Backend: Django (Python) for handling data logic and system processes.
+
+- Database: PostgreSQL for structured and efficient data storage.
+
+- Industrial Communication:Node-RED and Snap7 to read PLC values and send updates to the web app. 
+
+- HMI: WinCC Runtime Advanced for real-time machine monitoring and operator interaction.
+  #align(
+  center,
+  block[
+    #set align(left)
+    #highlight("Technologies used in the Project")
+  ],
+)
 == Hardware Architecture
 === Sorting Machine Prototype
 The system is built around a functional prototype of a sorting machine that classifies parts based on physical characteristics such as color and height. The machine includes:
@@ -42,6 +60,10 @@ The system is built around a functional prototype of a sorting machine that clas
 
   - Siemens S7-1200 PLC
 
+#figure(
+  image("images/tri station_full.png", width: 50%),
+  caption: "The Sorting Machine Prototype",
+)
 #align(
   center,
   block[
@@ -52,13 +74,78 @@ The system is built around a functional prototype of a sorting machine that clas
 
 === PLC I/O Setup
 
-#align(
-  center,
-  block[
-    #set align(left)
-    #highlight("table of input and output of the PLC")
-  ],
-)
+#figure(
+  table(columns: 4, align: center,
+  [Référence], [Désignation], [Description], [Adresse], 
+  [1B00], [L10], [Capteur vérin 1M1
+  en rétraction], [I0.0], 
+  [1B01], [L11], [Capteur vérin 1M1
+  en extension], [I0.1], 
+  [1B02], [mc], [Capteur
+  photoélectrique magasin chargé], [I0.2], 
+  [1B03], [ms], [Capteur
+  micro-switch pièce sortie du magasin], [I0.3], 
+  [1B04], [pn], [Capteur
+  photoélectrique pièce noire], [I0.4], 
+  [1B05], [pm], [Capteur inductif
+  pièce métallique], [I0.5], 
+  [2B00], [Brm], [Bras 2M1 position
+  médiane], [I0.6], 
+  [2B01], [Brd], [Bras 2M1 à droite], [I0.7], 
+  [3B00], [Cvb], [Convoyeur 3M1
+  Position basse], [I1.0], 
+  [3B01], [Cvh], [Convoyeur 3M1
+  Position haute], [I1.1], 
+  [3B02], [Cvm], [Convoyeur 3M1
+  Position milieu], [I1.2], 
+  [3B03], [L21], [Capteur vérin 3M2
+  en extension], [I1.3], 
+  [9F1], [fcg], [Capteur fin de
+  course gauche], [I1.4], 
+  [9F2], [fcd], [Capteur fin de
+  course droite], [I8.2], 
+  [9B01], [cfr], [Capteur fourchette], [I1.5], 
+  [9B02], [L31], [Capteur vérin 9M2
+  en extension], [I8.0], 
+  [9B03], [-], [Barrière
+  photoélectrique], [-], 
+  [], [STOP], [Bouton STOP], [I8.3], 
+  [], [START], [Bouton START], [I8.4], 
+  [], [FC], [Bouton FC], [I8.5], 
+  [], [Mode I], [Commutateur Mode I], [I8.6], 
+  [], [Mode II], [Commutateur Mode
+  II], [I8.7], 
+  [1Q00], [V1+], [Sortie Vérin 1M1], [Q0.0], 
+  [1Q01], [V1-], [Rentrée Vérin 1M1], [Q0.1], 
+  [2Q00], [BG], [Bras 2M1 va à
+  gauche], [Q0.2], 
+  [2Q01], [BD], [Bras 2M1 va à
+  droite], [Q0.3], 
+  [2Q02], [GV], [Actionner
+  générateur de vide 2M2], [Q0.4], 
+  [], [MC], [Montée convoyeur
+  3M1], [Q0.5], 
+  [], [DC], [Descente convoyeur
+  3M1], [Q0.6], 
+  [], [V2+], [Sortie vérin 3M2], [Q0.7], 
+  [9M1], [M1G], [Moteur 9M1 sens 1], [Q1.0], 
+  [], [M1D], [Moteur 9M1 sens 2], [Q1.1], 
+  [], [V3+], [Sortie Vérin
+  9M2], [Q8.0], 
+  [], [H_STOP], [Allumer Voyant du
+  bouton STOP], [Q8.1], 
+  [], [H_START], [Allumer Voyant du
+  bouton START], [Q8.2], 
+  [], [H_FC], [Allumer Voyant du
+  bouton FC], [Q8.3], 
+  [], [LA1], [Allumer Lampe 1], [Q8.4], 
+  [], [LA2], [Allumer Lampe 2], [Q8.5], 
+  [3A1], [EP], [Capteur Analogique
+  mesure épaisseur pièce], [IW64], 
+),caption: "I/O tags",
+
+) <tab:tags>
+@tab:tags shows the input and output tags of the plc
 === HMI
 Hmi panel
 === Pc
@@ -100,98 +187,51 @@ This component bridges the PLC and web application using:
 
   - Sends updates to the web app
 
+   
 
-    ```python
-    import snap7
-    import requests
 
-    plc = snap7.client.Client()
-    plc.connect('192.168.0.1', 0, 1)
-
-    while True:
-        part_count = plc.db_read(1, 0, 2)
-        status_code = plc.db_read(1, 2, 2)
-        data = {
-            "machine_id": "sorter01",
-            "part_count": int.from_bytes(part_count, 'big'),
-            "status_code": int.from_bytes(status_code, 'big')
-        }
-        requests.post("http://your-web-app/api/machine-data/", json=data)
-    ```
 === Web Application Layer (Django)
 The Django app provides:
 #set list(indent: 1.5cm, spacing: 0.5cm)
-- API endpoints for receiving data (/api/machine-data/)
 
-- Database models for storing machine status, faults, and - maintenance logs
-
-- User dashboard to visualize real-time data using Chart.js or other libraries
-
-- GMAO module for managing work orders, interventions, and maintenance history
-
-=== PostgreSQL Database
-The PostgreSQL database is structured to store various data types, including user information, work orders, fault logs, and intervention records. The database schema is designed to ensure data integrity and efficient querying.
-== Data Flow Diagram
-#figure(
-  image("images/workfolw.png", width: 50%),
-  caption: "The interaction between the different modules",
-)
-== REST API Structure
-
-
-#figure(
-  table(
-    columns: (auto, auto, auto),
-    [*Endpoint*], [*Method*], [*Description*], [$"/api/machine-data/"$], [$"POST"$], [$"Receives machine data from PLC"$],
-  ),
-  caption: "API structure",
-  ) <tab:api-structure>
-
-
-== Main Components
 - Frontend: A user-friendly interface developed using HTML, CSS, JavaScript, and Bootstrap, allowing operators to interact with the system.
 
 - Backend: Implemented using Django to handle business logic, data processing, and authentication.
 
 - Database: PostgreSQL is used to store user information, work orders, fault logs, and intervention records.
 
-- SCADA Integration: The S7-1200 PLC handles the comunucation task, while WinCC Runtime Professional is used for SCADA visualization of the factory machines.
-
-- PLC Integration: The S7-1200 PLC monitors machine states and detects faults in real time. These faults trigger data transmission via VBScript.
-
-- Data Transmission Mechanism: VBScript is embedded within WinCC Runtime Professional to extract machine data and insert it directly into the PostgreSQL database. The script is triggered by events such as machine failures or specific operator actions.
-
+- PLC Integration: The S7-1200 PLC monitors machine states and detects faults in real time. These faults trigger data transmission via a Python script.
+  
 - Fault Notification System: Once fault data is recorded in the database, the Django backend processes it and updates the web interface. This allows maintenance teams to respond promptly and resolve issues efficiently.
 
+#heading(level: 4, numbering: none)[PostgreSQL Database]
+
+The PostgreSQL database is structured to store various data types, including user information, work orders, fault logs, and intervention records. The database schema is designed to ensure data integrity and efficient querying.
 #figure(
-  image("images/ERD.png", width: 70%),
+  image("images/ERD.png", width: 100%),
   caption: "The ERD of the database",
 )
-=== Workflow
-The workflow of the system is designed to ensure seamless communication between the hardware and software components. The process can be summarized as follows:
-1. Data Acquisition: The PLC continuously monitors the machines and detects any faults or anomalies.
-2. Data Transmission: When a fault is detected, the VBScript embedded in WinCC Runtime Professional extracts relevant data and sends it to the PostgreSQL database.
-3. Data Processing: The Django backend processes the incoming data, updating the database and notifying the frontend.
-4. User Interaction: Operators can access the web interface to view real-time data, generate reports, and manage work orders.
-5. Fault Notification: The system sends SMS notifications to maintenance staff, alerting them of any critical faults that require immediate attention.
-6. Maintenance Management: The GMAO application allows maintenance teams to track work orders, log interventions, and analyze machine performance over time.
-7. Reporting: The system generates reports based on the collected data, providing insights into machine performance, fault history, and maintenance activities.
+== Data Flow Diagram
+The system is designed to enable seamless and responsive machine-to-machine, HMI interface, and maintenance platform communication. The workflow is structured as follows:
+
+- Machine Monitoring: The S7-1200 PLC continuously monitors machine conditions, detecting faults or abnormal conditions when the machine is running.
+
+- Local Fault Handling: When a fault occurs, a python Script in the Pc captures the machine-specific information regarding the event.
+
+- Database Update: Such information is directly uploaded to the PostgreSQL database to be stored and accessed by the maintenance management system (GMAO).
+
+- Backend Processing: The received fault data are processed by the Django backend, tagged with their respective machine and time, and updated in respective work order or intervention record.
+
+- User Access via HMI & Web Interface: Fault reporting can be done by operators via the HMI or interact with the web interface for real-time machine status viewing, intervention requests, and monitoring work order status.
+
+- Maintenance Workflow Management: With the GMAO interface, maintenance teams have all of these related tasks to take care of—posting interventions, monitoring response time, noting completed tasks, and analyzing repeat faults.
+
+- Reporting and Traceability: Reports on maintenance and performance are made available from a centralized perspective, giving visibility into downtime, intervention history, and machine reliability information.
+
 #figure(
-  image("images/workfolw.png", width: 50%),
-  caption: "The workflow of the system",
+  image("images/workfolw.png", width: 44%),
+  caption: "The interaction between the different modules",
 )
-
-== Technologies Used
-
-- Frontend: HTML, CSS, JavaScript for an interactive user experience.
-
-- Backend: Django (Python) for handling data logic and system processes.
-
-- Database: PostgreSQL for structured and efficient data storage.
-
-- Industrial Communication: VBScript within WinCC Runtime Professional to enable machine-to-database communication.
-
-- SCADA: WinCC Runtime Professional for real-time machine monitoring and operator interaction.
 
 
 #heading(level: 2, numbering: none)[Conclusion]

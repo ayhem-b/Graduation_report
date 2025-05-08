@@ -36,4 +36,4 @@ To properly address and overcome these current limitations, it became clear that
 
 / @chp:chap1: This chapter introduces the company, outlines the project context, identifies the problem, and specifies the project requirements.
 / @chp:chap2: An overview of the system architecture, key elements, workflow, and technology is given in this chapter
-/ @chp:chap3: #lorem(16)
+/ @chp:chap3: This chapter discusses how to develop and assemble the IIoT-based monitoring and maintenance system. 
