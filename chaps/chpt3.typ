@@ -3,33 +3,19 @@
 #show: report.with(isAbstract: false)
 #set page(header: none)
 #figure(chap(chap3, numbering: "1."), kind: "chapter", supplement: "Chapter") <chp:chap3> // Chapter 3
-#set page(header: smallcaps(title) + h(1fr) + emph(chap3) + line(length: 100%))
+#set page(header:[
+  #set text(10pt)
+  #smallcaps(title) 
+  #h(1fr) 
+  #emph(chap3) 
+  #line(length: 100%)])
 #set heading(outlined: true, numbering: "1.") 
 /* ------------------------------------------------------------------------------ */ 
 
 #heading(level: 2, numbering: none)[Introduction]
 This chapter explains the actual development and integration of the proposed IIoT-based monitoring and maintenance system. The development was divided into three main layers: PLC programming, edge data acquisition, and the Django-based web application. All components have a core role in enabling real-time monitoring, fault reporting, and maintenance management.
 
-== PLC Programming (TIA Portal)
-The Siemens S7-1200 PLC was programmed using TIA Portal to monitor and control a prototype sorting machine. The machine identifies and classifies parts based on height and color using sensors. The PLC also manages actuators (e.g., conveyors, reject mechanisms) and tracks machine status.
 
-Key elements:
-
-- Input signals from sensors detect part presence and type.
-
-- Output signals drive actuators based on classification logic.
-
-- Memory addresses (in Data Blocks) store:
-
-  - Total part count
-
-  - Number of parts by type
-  
-  - Current machine status (e.g., idle, sorting, error)
-
-  - Error flags for specific faults (e.g., jammed part, sensor failure)
-
-These values are continuously updated and made available for external read access by the edge device.
 
 
 ==  Web Application 
@@ -107,7 +93,15 @@ A Python script running on an edge device  was developed to:
 ) <fig:typst-logo>
 
 @fig:typst-logo shows the `Typst` logo.
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    [a], [b], [c], [$a$], [$b$], [$c$],
+  ),
+  caption: "Some table",
+) <tab:some-table>
 
+@tab:some-table displays some table.
 
 #heading(level: 2, numbering: none)[Conclusion]
 #lorem(32)

@@ -34,6 +34,6 @@ At Lear Corporation's Menzel Bourguiba factory, one use case stood out as being 
 To properly address and overcome these current limitations, it became clear that a new, web-enabled platform was imperative one that would have the ability to interface natively with the Siemens S7-1200 PLC, which operates the sorting machine. Further, this platform would need to have the ability to report and visualize key operational data and any faults that occur, all in a highly accessible format on an all-encompassing web dashboard.
 
 
-/ @chp:chap1: This chapter introduces the company, outlines the project context, identifies the problem, and specifies the project requirements.
-/ @chp:chap2: An overview of the system architecture, key elements, workflow, and technology is given in this chapter
+/ @chp:chap1: This chapter introduces the company, outlines the project context and identifies the problem
+/ @chp:chap2: An overview of the system architecture,Machine program, key elements, workflow, and technology is given in this chapter
 / @chp:chap3: This chapter discusses how to develop and assemble the IIoT-based monitoring and maintenance system. 

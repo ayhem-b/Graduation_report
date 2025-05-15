@@ -1,5 +1,5 @@
 // Enter your project data here:
-#let title = "Web-Based IIoT Monitoring System with Integrated Maintenance Management"
+#let title = "Design and Development of a Webapp Dedicated to Production Managment"
 #let titre = ""
 #let diploma = "License"
 #let program = "Electrical Engineering"
@@ -7,9 +7,9 @@
 #let author = "Belkhamsa Ayhem"
 #let date = datetime.today().display()
 
-#let chap1 = "Project Context"
+#let chap1 = "Company overview"
 #let chap2 = "System Design and Architecture"
-#let chap3 = "Implementation"
+#let chap3 = "System Implementation and Development"
 
 #let dedication = "To my dear father and mother, this graduation report is dedicated to you.
 Thank you for your endless love, guidance, and support.

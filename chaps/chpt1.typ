@@ -78,7 +78,7 @@ Lear Corporation operates in 39 countries with more than 257 locations worldwide
   caption: "LEAR implantation in the world",
 )
  
- #pagebreak()
+
 - United States: Headquarters in Southfield, Michigan, and several manufacturing plants.
 
 - Mexico: A major production center for automotive seating and wiring systems.

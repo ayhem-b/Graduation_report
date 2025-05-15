@@ -43,6 +43,7 @@
 #counter(page).update(1)
 #{
   show heading: none
+  
   heading(outlined: false, bookmarked: true)[Contents]
 }
 #outline(depth: 3, indent: auto)
@@ -68,6 +69,8 @@
   title: [List of Tables],
   target: figure.where(kind: table),
 )
+#pagebreak()
+#outline(target: heading.where(supplement: [Appendix]), title: [List of Appendix])
 
 #set page(numbering: "1")
 #counter(page).update(1)
@@ -77,5 +80,9 @@
 #include "chaps/chpt1.typ"
 #include "chaps/chpt2.typ"
 #include "chaps/chpt3.typ"
+
+
 #include "chaps/outro.typ"
+
+#include "chaps/Appendix.typ"
 // --- END OF DOCUMENT ---
