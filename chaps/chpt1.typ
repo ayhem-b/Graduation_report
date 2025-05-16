@@ -2,14 +2,15 @@
 #import "../Class.typ": *
 #show: report.with(isAbstract: false)
 #set page(header: none)
-#figure(chap(chap1, numbering: "1."), kind: "chapter", supplement: "Chapter") <chp:chap1> // Chapter 1
+ 
+#figure(chap(chap1, numbering: "1."), kind: "chapter", supplement: "content") <chp:chap1> // Chapter 1
 #set page(header:[
   #set text(10pt)
   #smallcaps(title) 
   #h(1fr) 
   #emph(chap1) 
   #line(length: 100%)])
-#set heading(outlined: true, numbering: "1.")
+#set heading(outlined: true, numbering: "1.",supplement: "content")
 /* ------------------------------------------------------------------------------ */
 
 #heading(level: 2, numbering: none)[Introduction]
@@ -42,10 +43,6 @@ Key milestones in Lear's history include:
 == Products and Services
 Lear Corporation operates under two major business segments: Seating and E-Systems.
 === Seating
-#figure(
-  image("images/seat.png", width: 15%),
-  caption: "Seat made by lear",
-)
 Lear is one of the world's leading manufacturers of complete automotive seat systems and related components. The seating division focuses on:
 
 - Seat Structures & Mechanisms: Development of durable and lightweight seat frames.
@@ -55,11 +52,13 @@ Lear is one of the world's leading manufacturers of complete automotive seat sys
 - Trim & Surface Materials: High-quality leather, fabric, and synthetic materials.
 
 - Seating Electronics: Integration of climate control, massage functions, and safety features.
-=== E-System
 #figure(
-  image("images/e-system.jpeg", width: 40%),
-  caption: "E-system fo lear corporation",
+  image("images/seat.png", width: 25%),
+  caption: "Seat made by lear",
 )
+
+=== E-System
+
 
 Lear's E-Systems division specializes in electrical and electronic components for vehicles, including:
 
@@ -70,7 +69,10 @@ Lear's E-Systems division specializes in electrical and electronic components fo
 - Connectivity Solutions: Infotainment, communication modules, and cybersecurity systems.
 
 - Battery Management Systems: Technology supporting electric and hybrid vehicle batteries.
-
+#figure(
+  image("images/e-system.jpeg", width: 40%),
+  caption: "E-system fo lear corporation",
+)
 == Global Presence
 Lear Corporation operates in 39 countries with more than 257 locations worldwide. Major production and engineering facilities are located in North America, Europe, and Asia, ensuring close collaboration with leading automakers.
 #figure(
@@ -106,12 +108,22 @@ The Menzel Bourguiba facility, which shows growth and modernization,experiences 
 Plant visits alongside worker interviews confirmed that the facility's maintenance management systems remained paper-based without any digital  transformation. The maintenance teams received machine fault reports exclusively through paper documentation while the operators provided verbal fault information.
 
 The  operational difficulties result in decreased production efficiency and longer response times and worsened equipment durability throughout the  lifecycle.
+#figure(
+  image("images/bon de travail.JPG", width: 80%),
+  caption: "Work order:",
+  
+)
+#figure(
+  image("images/intervenant.JPG", width: 80%),
+  caption: "Intervention form ",
+  
+)
 == Proposed Solution
 The proposed solution to the problems listed above would address them through the use of a Web-Based IIoT Monitoring System with an in-house tailored GMAO (CMMS) module. The proposed system is to be deployed on one prototype sorting machine, with simulation of the real-world factory environment in the Menzel Bourguiba factory.
 
 By showing the integration of Siemens S7-1200 PLC, edge communication using Python, and maintenance portal using Django, the project has immediate applicability to Lear's broader Industry 4.0 vision:
 
-#pagebreak()
+
 
 - Improve fault visibility and response time,
 

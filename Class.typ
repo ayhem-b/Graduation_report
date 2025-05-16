@@ -11,10 +11,10 @@
     rect(
       width: 18cm, 
       height: 3cm,
-      radius: (rest: 2pt)
+      radius: (rest: 9pt)
     )[
     #v(1cm)
-    #text(2em, smallcaps(heading(outlined: notAck, numbering: numbering, myRef)))
+    #text(1.6em, smallcaps(heading(outlined: notAck, numbering: numbering, myRef)))
     ] 
   )
 }
@@ -63,7 +63,7 @@ set list(indent: 1.5cm, spacing: 0.5cm)
 show math.equation: set text(weight: 400)
 
 // --- Headings ---
-show heading: set block(below: 0.5em, above: 1.75em)
+show heading: set block(below: 0.8em, above: 1.75em)
 show heading: set text(font:"Times New Roman")
 
 /*
@@ -87,7 +87,7 @@ set par(spacing: 1.5em)
 set par(leading: 1em, justify: true)
 
 // --- Figures ---
-show figure: set text(size: 0.85em)
+show figure: set text(size: 11pt)
 
 show figure.where(
 kind: table

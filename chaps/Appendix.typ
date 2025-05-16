@@ -3,7 +3,8 @@
 
 #show: report.with(isAbstract: false)
 #set page(header: none)
-#figure(chap("APPENDIX"), supplement: [Appendix], numbering: none) // GI
+#set page(numbering: none)
+#figure(chap("APPENDIX"), supplement: [Appendix], numbering:none) // GI
 #set page(
   header: [
     #set text(10pt)
@@ -12,11 +13,31 @@
     #emph("Appendix")
     #line(length: 100%)],
 )
+#set page(numbering: "I")
+#counter(page).update(1)
 
 #set heading(supplement: [Appendix])
 /* ------------------------------------------------------------------------------ */
+#appendix("A","Technical Specifications",[
+   #align(center)[
+    #image("images/station1 app.jpg", width: 97%)
+  ]
+     #align(center)[
+    #image("images/station 2 app.jpg", width: 90%)
+  ]
+     #align(center)[
+    #image("images/station 3 app.jpg", width: 90%)
+  ]
+     #align(center)[
+    #image("images/station 4 app.jpg", width: 90%)
+  ]
+])
 
-#appendix("A", "List of Tags", [
+
+
+
+
+#appendix("B", "List of Tags", [
  This appendix provides a complete mapping of all PLC input and output symbols used in the project. It includes tag references, symbolic designations, functional descriptions, and physical PLC addresses .
 @tab:i-tags displays the input tags of the PLC system.
 #figure(
@@ -77,14 +98,14 @@
   ),
   caption: "PLC Digital Output Tags",
 )<tab:o-tags>
-])
+])<app1>
 
 
 
 
 
 
-#appendix("B","Electrical schematic",[
+#appendix("C","Electrical schematic",[
   #align(center)[
     #image("images/diagram.png", width: 90%)
   ]
@@ -92,8 +113,32 @@
 
 
 
+#appendix("D","GEMMA",[
+  #align(center)[
+    #image("images/Gemma.png", width: 85%)
+  ]
+])
+ #appendix("E","SFC",[
 
-
+  #align(center)[
+    #image("images/grafcet-Page-1.drawio.png")
+  ]
+ ])
+#appendix("F","PLC Data Sheet",[
+#align(center)[
+  #image("images/0900766b81639d65-1.jpg",width:97% )
+  #pagebreak()
+  #image("images/0900766b81639d65-2.jpg")
+  #pagebreak()
+  #image("images/0900766b81639d65-3.jpg")
+  #pagebreak()
+  #image("images/0900766b81639d65-4.jpg")
+  #pagebreak()
+  #image("images/0900766b81639d65-5.jpg")
+  #pagebreak()
+  #image("images/0900766b81639d65-6.jpg")
+]
+])
 
 
 

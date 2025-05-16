@@ -46,7 +46,10 @@
   
   heading(outlined: false, bookmarked: true)[Contents]
 }
-#outline(depth: 3, indent: auto)
+#outline(
+  depth: 3,
+   indent: auto,
+)
 
 // LOF
 #pagebreak()
@@ -80,9 +83,11 @@
 #include "chaps/chpt1.typ"
 #include "chaps/chpt2.typ"
 #include "chaps/chpt3.typ"
-
-
 #include "chaps/outro.typ"
 
+
+
+
 #include "chaps/Appendix.typ"
+
 // --- END OF DOCUMENT ---
