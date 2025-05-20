@@ -23,13 +23,13 @@
     #image("images/station1 app.jpg", width: 97%)
   ]
      #align(center)[
-    #image("images/station 2 app.jpg", width: 90%)
+    #image("images/station 2 app.jpg", width: 120%)
   ]
      #align(center)[
-    #image("images/station 3 app.jpg", width: 90%)
+    #image("images/station 3 app.jpg", width: 120%)
   ]
      #align(center)[
-    #image("images/station 4 app.jpg", width: 90%)
+    #image("images/station 4 app.jpg", width: 120%)
   ]
 ])
 
@@ -38,8 +38,7 @@
 
 
 #appendix("B", "List of Tags", [
- This appendix provides a complete mapping of all PLC input and output symbols used in the project. It includes tag references, symbolic designations, functional descriptions, and physical PLC addresses .
-@tab:i-tags displays the input tags of the PLC system.
+
 #figure(
   table(
     columns: 4,
@@ -72,8 +71,6 @@
   caption: "PLC Digital and Analog Input Tags",
 )<tab:i-tags>
 
-
-@tab:o-tags displays the output tags of the PLC system.
 #figure(
   table(
     columns: 4,
@@ -121,7 +118,7 @@
  #appendix("E","SFC",[
 
   #align(center)[
-    #image("images/grafcet-Page-1.drawio.png")
+    #image("images/grafcet.drawio.png")
   ]
  ])
 #appendix("F","PLC Data Sheet",[
@@ -138,6 +135,111 @@
   #pagebreak()
   #image("images/0900766b81639d65-6.jpg")
 ]
+])
+#appendix("G","ERD Table ",
+[
+  #align(center)[
+  *  Maintenance Intervention Table *
+#table(
+columns: 2,
+  align: center,
+  
+[*Field*],
+[*Description*],
+[id],
+[Primary key],
+[received\_date],
+[Timestamp of intervention start],
+[end\_time],
+[Timestamp of intervention end],
+[fault\_category],
+[High-level fault classification (mechanical, electrical…)],
+[fault\_sub\_category],
+[Specific fault sub-type],
+[operator\_id],
+[Foreign key to auth\_user (who reported the issue)],
+[technician\_id],
+[Foreign key to auth\_user (technician who intervened)],
+[status],
+[Status of the intervention],
+[work\_order\_id],
+[Foreign key to related maintenance\_workorder],
+[used\_spare\_part\_id],
+[Foreign key to maintenance\_sparepart (optional)],
+  )
+*Maintenance Work Order Table*
+  #table(
+  columns: 2,
+  align: center,
+  
+[*Field*],
+[*Description*],
+[id],
+[Primary key (auto-incremented)],
+[time\_of\_default],
+[Timestamp of when the fault occurred],
+[description],
+[Text description of the fault],
+[created\_at],
+[Timestamp when the work order was created],
+[updated\_at],
+[Timestamp of last modification],
+[assigned\_user\_id],
+[Foreign key to auth\_user (technician)],
+[machine\_id],
+[Foreign key to maintenance\_machine],
+[status],
+[Current state (e.g., open, in progress, closed)],
+[],
+[],
+)
+*Machines Table*
+#table(
+  columns: 2,
+  align: center,
+ 
+[*Field*],
+[*Description*],
+[id],
+[Primary key],
+[machine\_id],
+[Internal machine code],
+[machine\_name],
+[Human-readable name (e.g., “Line 1 CNC”)],
+[description],
+[Optional notes about the machine],
+[status],
+[Operational state (running, faulty…)],
+)
+  #pagebreak()
+  *Spare Parts Inventory Table*
+  #table(
+  columns: 2,
+  align: center,
+  
+[*Field*],
+[*Description*],
+
+[id],
+[Primary key],
+
+[part\_id],
+[Internal spare part code],
+
+[part\_name],
+[Human-readable part name],
+
+[quantity],
+[Current stock quantity in inventory],
+
+)
+#pagebreak()
+#image("images/ERD - Copie.png",width: 110%)
+
+]])
+
+#appendix("H","User Inteaction",[
+  #image("images/User-interaction.png",width: 108%)
 ])
 
 

@@ -3,14 +3,14 @@
 #show: report.with(isAbstract: false)
 #set page(header: none)
  
-#figure(chap(chap1, numbering: "1."), kind: "chapter", supplement: "content") <chp:chap1> // Chapter 1
+#figure(chap(chap1, numbering: "1."), kind: "chapter", supplement: "Chapter") <chp:chap1> // Chapter 1
 #set page(header:[
   #set text(10pt)
   #smallcaps(title) 
   #h(1fr) 
   #emph(chap1) 
   #line(length: 100%)])
-#set heading(outlined: true, numbering: "1.",supplement: "content")
+#set heading(outlined: true, numbering: "1.")
 /* ------------------------------------------------------------------------------ */
 
 #heading(level: 2, numbering: none)[Introduction]
@@ -90,6 +90,9 @@ Lear Corporation operates in 39 countries with more than 257 locations worldwide
 - China & India: Growing markets for electric and connected vehicle technologies.
 == Lear Corporation in Tunisia
 Over the last few years, Tunisia has increasingly become an important and strategically located production base for Lear, mainly due to the availability of a highly qualified and skilled workforce, competitively low and affordable costs of production, and its geographical location in very close proximity to Europe. Due to these favorable factors, the company has been able to set up and is now running several plants in the country.
+#figure(
+  image("images/LearCorporation600.jpg"),caption: "Lear plant in tunisia "
+)
 
 === Tunisian Facilities
 
@@ -107,7 +110,8 @@ The Menzel Bourguiba facility, which shows growth and modernization,experiences 
 
 Plant visits alongside worker interviews confirmed that the facility's maintenance management systems remained paper-based without any digital  transformation. The maintenance teams received machine fault reports exclusively through paper documentation while the operators provided verbal fault information.
 
-The  operational difficulties result in decreased production efficiency and longer response times and worsened equipment durability throughout the  lifecycle.
+The operational difficulties result in decreased production efficiency and longer response times, which negatively affect equipment durability throughout its lifecycle @tpm .
+
 #figure(
   image("images/bon de travail.JPG", width: 80%),
   caption: "Work order:",
@@ -133,7 +137,20 @@ By showing the integration of Siemens S7-1200 PLC, edge communication using Pyth
 
 - Provide a low-cost, scalable alternative to SCADA systems.
 
-By implementing this system at Lear Corporation, the factory can significantly enhance its maintenance efficiency, reduce unplanned downtime, and improve overall operational performance.
+By implementing this system at Lear Corporation, the factory can significantly enhance its maintenance efficiency, reduce unplanned downtime, and improve overall operational performance @tpm.
+#heading(level: 2, numbering: none)[Project Scope and Development Environment]
+Due to limited access to the actual production machines at the Menzel Bourguiba factory, we decided to build and test our solution using a prototype sorting station set up in classroom I0.8 at ISET.
+
+This prototype mimics the core operations of a real industrial setup, which allowed us to:
+
+- Simulate machine faults and intervention scenarios,
+
+- Integrate a PLC with Python for edge communication,
+
+- Develop and deploy the Django-based GMAO web application in a realistic environment.
+
+By working with this prototype, we ensured that our system could be tested effectively despite limited factory access, while keeping it adaptable for future deployment in Lear’s production environment.
+
 
 #heading(level: 2, numbering: none)[Conclusion]
 This chapter provides the context to the project by tracing the history of Lear Corporation,

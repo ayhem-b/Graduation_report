@@ -1,7 +1,8 @@
 // CAPSTONE PROJECT
 #import "Class.typ": *
-
 #import "Title-page.typ": *
+
+
 
 #set document(author: author, title: title, keywords: keywords, date: auto)
 
@@ -73,21 +74,22 @@
   target: figure.where(kind: table),
 )
 #pagebreak()
-#outline(target: heading.where(supplement: [Appendix]), title: [List of Appendix])
 
+
+
+
+#outline(target: heading.where(supplement: [Appendix]), title: [List of Appendix])
+#include "abb.typ"
 #set page(numbering: "1")
 #counter(page).update(1)
 
 // --- GI + Chaps + GC ---
+
 #include "chaps/intro.typ"
 #include "chaps/chpt1.typ"
 #include "chaps/chpt2.typ"
 #include "chaps/chpt3.typ"
 #include "chaps/outro.typ"
-
-
-
-
 #include "chaps/Appendix.typ"
-
+#bibliography("Biblio.bib")
 // --- END OF DOCUMENT ---

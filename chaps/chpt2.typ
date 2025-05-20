@@ -13,7 +13,7 @@
 /* ------------------------------------------------------------------------------ */
 
 #heading(level: 2, numbering: none)[Introduction]
-The main goal of this project's design is to create an organized and effective system that guarantees the smooth operation and integration of different parts. An overview of the system architecture, key elements, workflow, and technology is given in this chapter. In line with the project's goals, the design strategy seeks to achieve dependability, scalability, and usability.
+The main objective of this project’s design is to develop a structured and efficient system that ensures seamless integration and operation of its various components. An overview of the system architecture, key elements, workflow, and technology is given in this chapter. In line with the project's goals, the design strategy seeks to achieve dependability, scalability, and usability.
 == Sorting Machine Prototype
 
 
@@ -29,7 +29,7 @@ _Detailed data can be found in Appendix A_
 
 === Station I
 This module is responsible for the loading and identification of parts.
-The parts to be sorted are extracted from this magazine and conveyed to the final storage area, where they will be sorted according to their color and material.
+Parts are extracted individually from the magazine and conveyed to the final storage area for sorting based on their color and material.
 
 The unsorted parts are initially placed in a transparent plastic tube.
 A photoelectric presence sensor (based on an emitter-receiver pair) determines whether the magazine is loaded or empty.
@@ -105,18 +105,8 @@ The control panel is connected to the PLC and the power supply via a 25-pin para
   caption: "Control Panel:",
   
 ) 
-=== PLC I/O Table 
- @fig:Tab-tags presents the list of inputs and outputs (I/O) used in the PLC program for the sorting station. Each signal is identified by a unique reference, a symbolic tag, a brief description of its function, and the corresponding address in the PLC memory (digital or analog).
 
-#figure(
-  image("images/Tags.png",width: 50%),
-  caption: "Tags Table in Tia Portal"
-)<fig:Tab-tags>
-
-_The complete Table of PLC I/O addresses used in this project is detailed in Appendix B_
-
-=== Electrical and Pneumatic schema
-_you can see the full schematic in Appendix C _
+Having described the five physical modules of the sorting station, we now turn to the control logic that governs their operation.
 
 === HMI
 To facilitate both local and remote interaction with the machine, a dual-interface system was implemented:
@@ -124,7 +114,14 @@ To facilitate both local and remote interaction with the machine, a dual-interfa
 - Local HMI Interface: Developed using WinCC Advanced, this interface is deployed on-site to allow operators to monitor machine states, initiate commands, and respond to alarms in real time.
 
 - Remote Dashboard: A custom dashboard was designed and integrated into the system architecture to allow remote monitoring and control. This web-based interface enables access to machine data and control functionalities from a home office or central monitoring location.
+
+
   
+== Communucation
+#figure(
+  image("images/chaart.png", width: 70%),
+  caption: "The interaction between the different modules",
+)
 
 
 == PLC Programming - TIA Portal
@@ -146,14 +143,22 @@ Key elements:
 
   - Error flags for specific faults (e.g., jammed part, sensor failure)
 
-These values are continuously updated and made available for external read access by the edge device.
+These values are continuously updated and made available for external read access by the edge device. 
 #figure(
-  image("images/plc 1214.png" ,width:100%)
+  image("images/plc 1214.png" ,width:99%)
   ,caption: "S7-1214C with I/O Module"
 )
+=== PLC I/O Table 
+ @fig:Tab-tags presents the list of inputs and outputs (I/O) used in the PLC program for the sorting station. Each signal is identified by a unique reference, a symbolic tag, a brief description of its function, and the corresponding address in the PLC memory (digital or analog).
 
-===  Study of Operating Modes – GEMMA Diagram
-In order to design a structured and safe automation sequence, we studied the system's functional behavior using the GEMMA methodology (Guide d’Étude des Modes de Marche et d’Arrêt). This standard tool helps define the system’s reaction to various operational modes, including starting, stopping, initialization, emergency stop, and cycle execution.
+#figure(
+  image("images/Tags.png",width: 50%),
+  caption: "Tags Table in Tia Portal"
+)<fig:Tab-tags>
+_The full list of PLC I/O addresses used in the project is provided in Appendix B, and the complete system schematic is included in Appendix C._
+
+===  Study of Operating Modes ( GEMMA )
+In order to design a structured and safe automation sequence, we studied the system's functional behavior using the GEMMA methodology. This standard tool helps define the system’s reaction to various operational modes, including starting, stopping, initialization, emergency stop, and cycle execution.
 
 The GEMMA diagram provides a clear framework for:
 
@@ -165,17 +170,25 @@ The GEMMA diagram provides a clear framework for:
 
 This study also supports the development of SFC diagrams by clearly separating control logic from mode management.
 For this project, we used the following GEMMA blocks, relevant to the sorting station:
-- F1: Normal production 
-- F4: Manual Mode 
-- F5: Testing Mode 
-- A1: Stop in initial state
-- A5: Preparation for restart after failure
-- A6: Returning the workpiece (PO) to initial state
-- D1: Emergency stop
+#figure(
+table(
+  columns: (auto, auto),
+  
+    [*Block*], [*Description*],
+    [F1],[ Normal production],
+    [F4],[ Manual Mode],
+    [F5],[Testing Mode],
+    [A1],[ Stop in initial state],
+    [A5],[ Preparation for restart after failure],
+    [A6],[ Returning the workpiece (PO) to initial state],
+    [D1],[ Emergency stop],
+  
+),caption: "GEMMA Modes",
+)
 _A complete illustration of these blocks and transitions is available in Appendix D,_
 
 === Sequentiel Functions Charts
-To define the sequencing and coordination of the sorting station's operations, a GRAFCET (Graphe Fonctionnel de Commande Étape/Transition) diagram was developed. This graphical tool allowed for a clear and systematic representation of the system’s behavior in terms of steps (states) and transitions (conditions for change).
+To define the sequencing and coordination of the sorting station's operations, a GRAFCET diagram (Sequential Function Chart – SFC) was developed. This graphical tool allowed for a clear and systematic representation of the system’s behavior in terms of steps (states) and transitions (conditions for change).
 
 The logic derived from this GRAFCET in @fig:grafcet was implemented using structured programming blocks in TIA Portal (e.g., OBs, FBs, FCs), ensuring a faithful and maintainable translation of the control sequence.
 
@@ -206,33 +219,55 @@ Below the @fig:blocks  is illustrating a part of the program structure as implem
   caption: "Tia Portal Blocks ",
 )<fig:blocks>
 
-== Communucation
-#figure(
-  image("images/chaart.png", width: 70%),
-  caption: "The interaction between the different modules",
-)
-The software system is split into three main layers:
+
+== Communication Architecture
+The integration between the custom SCADA system and the Siemens S7-1200 PLC was achieved using Snap7, an open-source library that facilitates communication with Siemens PLCs using the S7 protocol.
+The software system is split into four main layers as shown in @layers:
 #figure(
   image("images/interaction.png", width: 50%),
   caption: "The interaction between the different modules",
-)
-== Software Architecture
-The software system is split into three main layers:
+)<layers>
+
+
+
+=== Overview of Snap7
+Snap7 is a multi-platform, open-source communication library developed in C++ that enables client/server interaction with Siemens PLCs. It supports various programming languages including Python, C\# , and Java, allowing for flexible integration into different software environments @snap7.
+
+Snap7 provides full access to the PLC memory areas such as:
+
+- Data Blocks (DBs)
+
+- Inputs (I) and Outputs (Q)
+
+- Markers (M)
+
+- Timers and Counters
+
+This makes it particularly well-suited for real-time data acquisition, remote monitoring, and control within custom-built SCADA or HMI systems.
+
+In this project, the Snap7 Python client (snap7.client) was used to establish a direct connection with the S7-1200 PLC. Through the client as shown in @snap , the application can:
+
+- Continuously read values from sensors and system states stored in the PLC
+
+- Write control commands or fault acknowledgments to specific memory addresses
+
+- Monitor machine status in real-time and trigger alerts or interventions
+
+The use of Snap7 allowed the web-based SCADA-HMI interface to communicate reliably with the PLC over the plant’s local network (TCP/IP), following the standard S7 communication protocol.
 #figure(
-  image("images/interaction.png", width: 50%),
-  caption: "The interaction between the different modules",
-)
+  image("images/snap7_diagram_II.png",width: 100%),
+  caption: "snap7 client , server and partner diagram",
+)<snap>
+=== Advantages of Using Snap7
+- Open-source and free to use
 
-=== Edge Communication Layer
-This component bridges the PLC and web application using:
+- Cross-platform compatibility (Windows, Linux, etc.)
 
-- Python + Snap7 library
+- No need for Siemens proprietary software like OPC servers
 
-  - Periodically reads data from the PLC
+- Lightweight and efficient for real-time applications
 
-  - Formats the data as JSON
-
-  - Sends it to the web app
+This choice aligned well with Industry 4.0 principles, enabling flexible and scalable communication with industrial equipment without vendor lock-in.
 
 #figure(
   image("images/snap7 dagram.png", width: 60%),
@@ -241,57 +276,78 @@ This component bridges the PLC and web application using:
 
 
 
-== Web Application Layer
-=== Technologies Used
+== Web Application 
+The web application layer is the primary interface through which the system is used by users. It is an operating control platform that combines human operators, the database, and industrial automation system (PLC). For this project, creating a responsive, secure, and extensible web application that caters to real-time machine monitoring, maintenance tracking, and data visualization was required.
+=== Functional requirements
+Essentially, the system must support fault reporting in real-time, user management, machine status monitoring, and communication with PLCs through Snap7. The maintenance technicians should be enabled to securely log in, enter fault reports from the dashboard, and query machine statuses. The administrator should be able to access a management interface to view all interventions, generate reports, and manage users. The system should also be capable of sending or triggering a notification to inform the maintenance staff in the event that a fault is detected. These requirements would make the application improve the efficiency of the maintenance operation and fill in the gap between the SCADA environment and web-based monitoring systems.
+=== Overview of Architecture
+This layer is built using the Django web framework, which follows the Model-View-Template (MVT) architecture. The application interacts with a PostgreSQL database and communicates with the Siemens S7-1200 PLC using the Snap7 library, allowing real-time status reading and control over the machines from the browser.
+=== Technology Stack 
+To implement an effective and scalable solution that integrates both SCADA functionalities and a modern web-based maintenance management system, a carefully selected technology stack was chosen. Each component was selected based on performance, compatibility, community support, and ease of integration.
 
-The Django app provides:
+*Bootstrap (UI Styling Framework)*
 
+Bootstrap was utilized to accelerate front-end development and ensure a clean, responsive design. With its prebuilt components and mobile-first grid system, it provided a consistent look across all devices while reducing the amount of custom CSS needed. This helped deliver a professional user interface suitable for factory environments with various screen sizes.
+This technology stack offers a balanced combination of performance, maintainability, and industrial compatibility, making it well-suited for a hybrid SCADA-CMMS platform.
 
-- Frontend: A user-friendly interface developed using HTML, CSS, JavaScript, and Bootstrap, allowing operators to interact with the system.
+*Django (Back-end Framework)*
 
-- Backend: Implemented using Django to handle business logic, data processing, and authentication.
+Django was chosen as the back-end framework because of its robust structure, inherent security, and speedy development process. As a Python-based web framework, Django makes database management easy, handles user authentication, and HTTP requests easy. Its ORM provides easy interaction with the PostgreSQL database, and its admin interface helps in handling users and intervention records. Django's modularity also facilitates easy scaling and integration with additional features in the future.
 
-- Database: PostgreSQL is used to store user information, work orders, fault logs, and intervention records.
+*PostgreSQL (Database Management System)*
 
-- PLC Integration: The S7-1200 PLC monitors machine states and detects faults in real time. These faults trigger data transmission via a Python script.
-- HMI: WinCC Runtime Advanced for real-time machine monitoring and operator interaction.
+PostgreSQL was chosen as the database system because of its reliability, advanced indexing techniques, and support for complex queries. It is open-source and highly compatible with Django's ORM, which ensures secure, consistent, and fast data transactions. PostgreSQL’s ability to handle large volumes of data makes it ideal for managing machine history, user activity logs, and intervention records in a production environment.
 
-- Fault Notification System: Once fault data is recorded in the database, the Django backend processes it and updates the web interface. This allows maintenance teams to respond promptly and resolve issues efficiently.
 #figure(
   image("images/technologies.png", width: 90%),
   caption: " Technologies used in the Project",
 )
 
-#heading(level: 4, numbering: none)[PostgreSQL Database]
+*Database Schema Design*
 
-The PostgreSQL database is structured to store various data types, including user information, work orders, fault logs, and intervention records. The database schema is designed to ensure data integrity and efficient querying.
+The database is designed around Django’s authentication framework and extended to support CMMS features such as work order management, machine tracking, and maintenance logging, as illustrated in @erd
+
+ Here's a breakdown of the schema components:
+
+*Authentication and Permissions (Green Tables):*
+These tables are standard in Django for handling users, groups, and permissions:
+
+- *auth_user*: Stores user accounts. Includes fields like username, email, first_name, last_name, and boolean flags such as is_superuser, is_staff, and is_active.
+
+- *auth_group:* Represents user groups (roles).
+
+- * auth_permission:* Stores the list of permissions (read, write, delete, etc.).
+
+- *auth_user_groups:* Many-to-many relationship between users and groups.
+
+- *auth_user_user_permissions:* Many-to-many link between users and permissions.
+
+- *auth_group_permissions:* Links groups to their permissions.
+
+- *django_admin_log:* Logs administrative actions taken by users in the admin panel.
+
+- *django_content_type:* Supports generic relationships and logging in Django.
+
+*Maintenance Management (Red Tables)*
+
+These tables define the core of the CMMS functionality:
+
+- *maintenance_workorder:* represents a maintenance work order created when a failure occurs. It’s linked to a specific machine and assigned to a technician (auth_user).
+
+- *maintenance_intervention:* captures data about the actual maintenance intervention. Linked to the associated work order and technician who handled it. It also references the spare part used.
+
+- *maintenance_machine:* Contains machine records in the system, each of which can be linked to multiple work orders.
+
+- *maintenance_sparepart:* Manages the inventory of spare parts. Each part can be linked to one or more interventions.
+_The full diagram is available in Appendix G._
+
 #figure(
   image("images/ERD.png", width: 100%),
   caption: "The ERD of the database",
-)
-== Data Flow Diagram
-The system is designed to enable seamless and responsive machine-to-machine, HMI interface, and maintenance platform communication. The workflow is structured as follows:
+)<erd>
 
-- Machine Monitoring: The S7-1200 PLC continuously monitors machine conditions, detecting faults or abnormal conditions when the machine is running.
-
-- Local Fault Handling: When a fault occurs, a python Script in the Pc captures the machine-specific information regarding the event.
-
-- Database Update: Such information is directly uploaded to the PostgreSQL database to be stored and accessed by the maintenance management system (GMAO).
-
-- Backend Processing: The received fault data are processed by the Django backend, tagged with their respective machine and time, and updated in respective work order or intervention record.
-
-- User Access via HMI & Web Interface: Fault reporting can be done by operators via the HMI or interact with the web interface for real-time machine status viewing, intervention requests, and monitoring work order status.
-
-- Maintenance Workflow Management: With the GMAO interface, maintenance teams have all of these related tasks to take care of—posting interventions, monitoring response time, noting completed tasks, and analyzing repeat faults.
-
-- Reporting and Traceability: Reports on maintenance and performance are made available from a centralized perspective, giving visibility into downtime, intervention history, and machine reliability information.
-
-#figure(
-  image("images/workfolw.png", width: 44%),
-  caption: "The interaction between the different modules",
-)
 
 
 #heading(level: 2, numbering: none)[Conclusion]
-This chapter provided a comprehensive analysis of the system’s design, covering its architecture, components, data flow, and constraints. Figures such as the system architecture diagram, database schema, and fault detection workflow illustrate the working mechanisms in detail. The next chapter will delve into the implementation phase, explaining the technical aspects of development and integration.
 
+In this chapter we  described the architecture and design of a five-module prototype sorting machine with identification of parts, transfer, measurement, sorting, and control functionality. The system used mechanical, electrical, and software components to sort parts by color, material, and thickness. Siemens S7-1214 PLC with TIA Portal was utilized for control logic, supported by GEMMA and SFC for operation safety and sequencing. Interfacing with external systems and PLC was done through the Snap7 library, which supported real-time data exchange. A web-based SCADA interface was implemented using Django, PostgreSQL, and Bootstrap for remote and local monitoring in accordance with Industry 4.0 standards.

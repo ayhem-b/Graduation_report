@@ -13,27 +13,14 @@
 /* ------------------------------------------------------------------------------ */ 
 
 #heading(level: 2, numbering: none)[Introduction]
-This chapter explains the actual development and integration of the proposed IIoT-based monitoring and maintenance system. The development was divided into three main layers: PLC programming, edge data acquisition, and the Django-based web application. All components have a core role in enabling real-time monitoring, fault reporting, and maintenance management.
+In this chapter, we explain the actual development and integration of the proposed IIoT-based monitoring and maintenance system. We divided the development into two main layers: edge data acquisition, and the Django-based web application. Each component played a key role in enabling real-time monitoring, fault reporting, and maintenance management.
 
 
 
-
-==  Web Application 
-
-== Edge Communication 
-=== Python Script 
-A Python script running on an edge device  was developed to:
-
-- Connect to the S7-1200 via Ethernet using the Snap7 library.
-
-- Read critical data points from the PLC.
-
-- Convert binary/byte data into human-readable values (integers, strings).
-
-- Send the data to the Django web server using HTTP POST requests.
-
-
-=== Script Snippet:
+==  Environment Setup
+===  virtual environment
+In order to maintain a clean and organized development setup, we used a virtual environment to create an isolated Python environment for our project. This allowed us to manage our dependencies separately from other projects or the system-wide Python installation. It was especially useful since we were working on multiple tools that might require different package versions.
+/*
 #align(
   center,
  block(
@@ -43,65 +30,86 @@ A Python script running on an edge device  was developed to:
   fill: luma(96.55%),
   inset: 8pt,
   radius: 8pt,
-    ```python 
-    import snap7
-    import requests
+  */
+    ```bash
+# we changed the dirictory to our project folder
+cd /capstone_project
 
-    plc = snap7.client.Client()
-    plc.connect('192.168.0.1', 0, 1)  # Adjust IP, rack, and slot
+# We created a virtual environment named 'venv'
+python -m venv venv
 
-    while True:
-        part_count = plc.db_read(1, 0, 2)
-        status = plc.db_read(1, 2, 2)
+# This how we activate the virtual environment each time
 
-        data = {
-            "machine_id": "sorter01",
-            "part_count": int.from_bytes(part_count, 'big'),
-            "status_code": int.from_bytes(status, 'big')
-        }
+venv\Scripts\activate
+# Install Django
 
-        requests.post("http://your_web_app/api/machine-data/", json=data)
+# We installed Django , Snap7 & Requirments packages
+pip install django
+pip install python-snap7
+pip install requirements.txt -r
+
+# When we're done, we deactivate the virtual environment with 
+deactivate
     ```
-  )
-)
-    
 
-=== Node-RED
-#lorem(64)
+=== Requirments
+- `psycopg2-binary`
+    - Why we need it: It allows Django to communicate with a PostgreSQL database.
 
 
+    - Used for: ORM queries, migrations, database access.
 
-=== REST API Structure
+
+- `sqlparse`
+    - Why you need it:
+
+        - Used internally by Django to format and parse SQL statements.
+
+        - Helps in operations like pretty-printing raw SQL in logs or admin.
+
+    - Used for: Debugging SQL queries, Django's sqlmigrate command, and other internal formatting tasks.
 
 
+
+
+== User interface 
+
+Through our implementation process, we designed user-friendly interfaces for the technicians and the administrators to use while interacting with the CMMS system. The logic of every form and dashboard is governed by Django views and templates, dynamically rendered based on the user's role.
+
+ _For more comprehensive coverage, consult Appendix H _
+=== Authentication
+In this section, we designed a user-friendly authentication view  as shown in @login to serve as the entry point to our web application. We implemented a simple and responsive interface that allows users to log in securely using their credentials. Through this view, we control access to the system and direct users to their respective dashboards based on their roles, whether they are technicians or administrators.
 #figure(
-  table(
-    columns: (auto, auto, auto),
-    [*Endpoint*], [*Method*], [*Description*], [$"/api/machine-data/"$], [$"POST"$], [$"Receives machine data from PLC"$],
-  ),
-  caption: "API structure",
-  ) <tab:api-structure>
+    image("images/webapp/login.png"),caption: "the Login page"
+)<login>
+ === Technicien Interface
+ We created a dedicated screen where technicians can submit intervention reports directly from their dashboard. This form is pre-filled with the technician's name (based on the logged-in user), and allows them to input key information such as fault category, start/end time, and select used spare parts from a dropdown list. Django Forms were used to generate and validate the form, with Bootstrap ensuring a clean and mobile-friendly layout.
 
 
-=== Subsection 2.2
-#lorem(64)
+ @Technicien-interface shows the intervention form interface used by technicians.
+ #figure(
+  image("images/webapp/add_interv.png"),caption: "The Technicien interface"
+ )<Technicien-interface>
+ === Admin Interface
+For administrators, we implemented a comprehensive dashboard that visualizes maintenance activity in real time. Using Django templates and JavaScript chart libraries like Chart.js, we displayed various statistics, such as:
 
-/* --- FIGURE --- */
+- Number of work orders by status (open, in progress, completed)
+
+- Downtime by location or fault category
+
+- Spare part usage trends
+Cards and alert boxes were styled using Bootstrap’s “danger” theme to highlight urgent issues, with each card dynamically updated from the database.
+@dash illustrates the administrator dashboard with visual indicators and real-time statistics.
+These dashboards help maintenance managers make data-driven decisions and quickly assess factory health.
 #figure(
-  image("images/typst.svg", width: 10%),
-  caption: "Typst logo",
-) <fig:typst-logo>
+    image("images/webapp/dash.png"),caption: "Admin's Dashboard"
+)<dash>
 
-@fig:typst-logo shows the `Typst` logo.
+*Navigation*
+
+The navigation bar allows users to move between modules such as "Work Orders", "Interventions", and "Spare Parts", with the interface adapting to their permissions.
+@nav displays the navigation layout for an admin user.
 #figure(
-  table(
-    columns: (auto, auto, auto),
-    [a], [b], [c], [$a$], [$b$], [$c$],
-  ),
-  caption: "Some table",
-) <tab:some-table>
-
-@tab:some-table displays some table.
-
-#heading(level: 2, numbering: none)[Conclusion]
-#lorem(32)
+    image("images/webapp/nav.png",width: 28%),caption: "Admin's Navbar"
+)<nav>
+== Backend

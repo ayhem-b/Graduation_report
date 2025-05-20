@@ -31,7 +31,7 @@ At Lear Corporation's Menzel Bourguiba factory, one use case stood out as being 
 
   - There has been a total lack of any analysis of historical data when it comes to predictive or preventive maintenance.
 
-To properly address and overcome these current limitations, it became clear that a new, web-enabled platform was imperative one that would have the ability to interface natively with the Siemens S7-1200 PLC, which operates the sorting machine. Further, this platform would need to have the ability to report and visualize key operational data and any faults that occur, all in a highly accessible format on an all-encompassing web dashboard.
+To properly address and overcome these current limitations, it became clear that a new, web-enabled platform was imperative one that would have the ability to interface natively with PLC, which operates the sorting machine. Further, this platform would need to have the ability to report and visualize key operational data and any faults that occur, all in a highly accessible format on an all-encompassing web dashboard.
 
 
 / @chp:chap1: This chapter introduces the company, outlines the project context and identifies the problem

@@ -5,7 +5,7 @@
 
 // --- Titles of Chapters --- 
 #let chap(myRef, notAck: true, numbering: none) = {
-  v(8cm)
+  v(11cm)
   place(
     center, 
     rect(
@@ -22,12 +22,17 @@
 
 #let appendix(letter, title, body) = {
   pagebreak()
-  
   align(center)[
     #text(15pt,heading([Appendix #letter]))
     #text(16pt )[#title]
     
   ]
+  body
+}
+
+#let abb(title,body)={
+  pagebreak()
+  align(center)[#text(15pt,heading([#title]))]
   body
 }
 #let report(
@@ -38,14 +43,14 @@
   supervisor: "",
   author: "",
   date: datetime.today().display(),
-  bibFile: none,
+  bibFile: "none",
   isAbstract: false,
   body,
 ) = { 
 
   // --- Set the document's geometric properties. ---
   set page(
-    margin: (left: 20mm, right: 20mm, top: 20mm, bottom: 20mm),
+    margin: (left: 20mm, right: 20mm, top: 25mm, bottom: 20mm),
     number-align: center,
   )
 
