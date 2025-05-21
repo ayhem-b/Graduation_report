@@ -104,41 +104,103 @@ Lear Corporation has several facilities in Tunisia, including:
 
 - Bizerte Industrial Complex: Opened in 2023, this facility is expected to employ over 7,000 workers by 2027, focusing on advanced automotive technologies.
 
+== Factory Layout and Machine Distribution
+
+As part of our initial site analysis, we obtained the official layout of the Menzel Bourguiba factory. This layout provided us with detailed information on the positions and roles of each machine across the facility. It allowed us to understand the workflow and interactions between different zones of production.
+
+#figure(
+  image("images/Factory.jpg", width: 80%),
+  caption: "Layout of Machines in Lear's Menzel Bourguiba Factory",
+)
+
+By analyzing this layout, we were able to link physical machine locations with maintenance data. This was a crucial step in designing an interface that accurately reflects the status of each production zone in real time. It also helped us determine where fault alerts should be mapped and which zones required more frequent intervention based on their criticality.
+
+We identified the following key zones in the factory:
+
+=== Cutting Zone
+
+In the cutting zone, raw materials are processed and shaped using high-speed cutting machines. This area represents the beginning of the production process and has a strong impact on the downstream workflow.
+
+We observed that the most common issues in this zone included:
+- Blade wear and misalignment
+- Material feeding jams
+- Dust accumulation affecting sensors
+
+=== Sewing Zone
+
+This area hosts a large number of industrial sewing machines used to assemble parts. Due to the precision and speed required, even minor faults here can disrupt production.
+
+We noted frequent issues such as:
+- Needle breakage
+- Thread feed errors
+- Synchronization failures between machine components
+
+=== Assembly Zone
+
+In the assembly zone, components from previous stages are combined into complete seat structures. The process involves mechanical presses, fastening systems, and in some cases, robotic arms.
+
+Typical challenges we identified included:
+- Hydraulic pressure drops
+- Misaligned sensors
+- Actuator failures
+
+=== Quality Control Area
+
+Once assembled, the products pass through quality control, where visual and electronic inspections ensure compliance with specifications. This is a key area for avoiding defective products.
+
+We found issues such as:
+- Camera calibration problems
+- Sensor signal delays
+- Network disconnections during data logging
+
+=== Packaging and Logistics Zone
+
+This final zone handles labeling, packaging, and preparing items for delivery. Although not part of the direct manufacturing process, problems here can delay product shipments.
+
+Common problems included:
+- Barcode scanner faults
+- Label printing errors
+- Conveyor system interruptions
+
+By mapping out each of these zones and understanding their common faults, we were able to design a monitoring system that supports location-based fault detection and prioritization. This foundation was essential for building a responsive and context-aware CMMS solution.
+
+With a clear overview of the production environment and machine distribution, we were prepared to address the underlying challenges faced by maintenance teams in the Menzel Bourguiba factory.
+
+
 
 == Problem Statement
-The Menzel Bourguiba facility, which shows growth and modernization,experiences standard beginning challenges in its new  manufacturing operations.
 
-Plant visits alongside worker interviews confirmed that the facility's maintenance management systems remained paper-based without any digital  transformation. The maintenance teams received machine fault reports exclusively through paper documentation while the operators provided verbal fault information.
+After thoroughly analyzing the factory layout and observing the workflow in each production zone, we identified a major operational challenge: the absence of a modern, digital maintenance management system. Despite the facility’s growth and modernization, maintenance operations at the Menzel Bourguiba plant still relied heavily on paper-based processes.
 
-The operational difficulties result in decreased production efficiency and longer response times, which negatively affect equipment durability throughout its lifecycle @tpm .
+During our site visits and discussions with technicians and operators, we confirmed that fault reports were primarily delivered verbally or through handwritten work orders. This lack of digitization limited traceability and created delays in both communication and response time.
+
+We also observed that fault history was not archived systematically, making it difficult to analyze recurring issues, track intervention times, or plan preventive actions effectively. Operators, when identifying an issue on a machine, had to inform the maintenance team manually—often without precise documentation or timing.
+
+These limitations not only slowed down intervention procedures but also affected equipment performance and increased the risk of long-term wear due to delayed maintenance. Ultimately, this translated into reduced overall productivity and a lack of real-time visibility into machine health.
 
 #figure(
   image("images/bon de travail.JPG", width: 80%),
-  caption: "Work order:",
-  
+  caption: "Work Order used by the maintenance team",
 )
 #figure(
   image("images/intervenant.JPG", width: 80%),
-  caption: "Intervention form ",
-  
+  caption: "Intervention Form completed manually",
 )
-== Proposed Solution
-The proposed solution to the problems listed above would address them through the use of a Web-Based IIoT Monitoring System with an in-house tailored GMAO (CMMS) module. The proposed system is to be deployed on one prototype sorting machine, with simulation of the real-world factory environment in the Menzel Bourguiba factory.
 
-By showing the integration of Siemens S7-1200 PLC, edge communication using Python, and maintenance portal using Django, the project has immediate applicability to Lear's broader Industry 4.0 vision:
+== Specifications
 
+To address the limitations identified during our field study, we proposed the development of a web-based IIoT (Industrial Internet of Things) monitoring system integrated with a custom-built CMMS (Computerized Maintenance Management System). Our solution is designed to modernize maintenance practices by digitizing fault reporting, improving communication flow, and enabling real-time monitoring of machine status.
 
+By implementing this solution, we aim to:
 
-- Improve fault visibility and response time,
+- Improve fault visibility and reduce response times,
+- Decrease machine downtime by streamlining maintenance workflows,
+- Enable data-driven decision-making through fault logging and visualization,
+- Offer a cost-effective and scalable alternative to commercial SCADA systems.
 
-- Reduce machine downtime,
+Our approach aligns with Lear Corporation’s long-term vision for Industry 4.0 transformation. Through this initiative, we intend to empower maintenance teams with a smart, connected tool that enhances operational efficiency and promotes proactive maintenance strategies.
 
-- Enable data-driven maintenance planning,
-
-- Provide a low-cost, scalable alternative to SCADA systems.
-
-By implementing this system at Lear Corporation, the factory can significantly enhance its maintenance efficiency, reduce unplanned downtime, and improve overall operational performance @tpm.
-#heading(level: 2, numbering: none)[Project Scope and Development Environment]
+== Project Scope and Development Environment
 Due to limited access to the actual production machines at the Menzel Bourguiba factory, we decided to build and test our solution using a prototype sorting station set up in classroom I0.8 at ISET.
 
 This prototype mimics the core operations of a real industrial setup, which allowed us to:
@@ -153,8 +215,10 @@ By working with this prototype, we ensured that our system could be tested effec
 
 
 #heading(level: 2, numbering: none)[Conclusion]
-This chapter provides the context to the project by tracing the history of Lear Corporation,
-identification of the major maintenance issues, and offering the suggested Webapp solution.
 
-The Later chapters provide further details regarding the design, execution, and evaluation of the combined
-system, its merits, and how it can benefit Lear's business.
+
+In this chapter, we introduced the company, explored its historical and operational context, and identified key challenges affecting maintenance efficiency at the Menzel Bourguiba facility. Through direct observations and interviews with staff, we determined that maintenance reporting was entirely paper-based, leading to delays and inefficiencies.
+-
+To respond to this issue, we proposed a hybrid IIoT-CMMS solution that combines real-time monitoring, web-based fault reporting, and streamlined maintenance workflows. Our solution bridges the gap between factory-level operations and digital oversight.
+
+The next chapters will detail the implementation of this system, from design and software architecture to deployment, testing, and evaluation of results in terms of performance and reliability.

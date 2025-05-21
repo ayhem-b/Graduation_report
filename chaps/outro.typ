@@ -42,13 +42,10 @@ In order to further strengthen the capabilities and impact of the developed syst
 
 1. Integration of Predictive Maintenance:
 The implementation of predictive maintenance strategies represents a natural evolution of the current system. By leveraging historical fault data and integrating machine learning algorithms, it would be possible to predict potential equipment failures before they occur. This proactive approach could significantly reduce unplanned downtime, optimize maintenance scheduling, and extend the operational lifespan of critical assets.
-
+#pagebreak()
 2. Enhanced System Flexibility for Multi-Machine Environments:
 Adapting the platform to support a wider range of machine types and configurations is another important area for development. By making the system architecture modular and easily configurable, it could be deployed across various production lines with minimal customization. This would increase the system’s applicability and scalability within diverse industrial environments.
 
-3. Implementation of Editable and Interactive Data Visualization Tools:
-Future iterations of the system could benefit from incorporating interactive and customizable data visualization features. Enabling users to modify chart parameters, apply filters based on key performance indicators (KPIs), and define custom time ranges would enhance decision-making by offering more targeted and insightful analysis of maintenance data.
 
-These enhancements would not only improve the system's functionality and user experience but would also ensure continued alignment with the core principles of Industry 4.0, fostering the development of a truly intelligent, adaptive, and connected maintenance management ecosystem.
 
 

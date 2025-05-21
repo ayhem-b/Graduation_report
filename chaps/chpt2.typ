@@ -19,7 +19,7 @@ The main objective of this project’s design is to develop a structured and eff
 
 The system is built around a functional prototype of a sorting machine that classifies parts based on physical characteristics such as color and height.
 #figure(
-  image("images/station.jpg", width: 70%),
+  image("images/station.jpg", width: 90%),
   caption: "The Sorting Machine Prototype",
 )
 _Detailed data can be found in Appendix A_
@@ -39,7 +39,7 @@ Two pneumatic position sensors indicate whether the cylinder is extended or retr
 The material characteristics of the part (color and material) are determined respectively by an optical sensor and an inductive sensor.
 An activated micro-switch determines whether the part has been removed from the magazine.
 #figure(
-  image("images/station I.png", width: 70%),
+  image("images/station I.png", width: 90%),
   caption: "Part Storage",
   
 )
@@ -50,7 +50,7 @@ Equipped with a pivoting arm that can rotate up to 180°, this mechanism transpo
 
 A 5/3 valve positions the arm in 3 positions: right (to release the part), left (to pick up the part), and the resting position (centered vertically). The vacuum generator is controlled by a monostable 5/2 valve for gripping or releasing the part.
 #figure(
-  image("images/station II.png", width: 70%),
+  image("images/station II.png", width: 90%),
   caption: "Transfer Mechanism",
   
 )
@@ -67,7 +67,7 @@ Depending on the measured thickness, the part is classified as either good or de
 
 The vertical conveyor's position is monitored by 3 sensors: top position, middle position, and bottom position. The cylinder’s state (extended) is detected by a pneumatic position sensor, and it is controlled by a monostable 5/2 valve.
 #figure(
-  image("images/station III.png", width: 70%),
+  image("images/station III.png", width: 90%),
   caption: "Thickness Measurement",
   
 )
@@ -86,7 +86,7 @@ The part coming from Module 3 is moved by a horizontal conveyor driven by a bidi
 The cylinder’s status is detected by a pneumatic position sensor. The conveyor's position in front of each chute is determined by a photoelectric fork sensor.
 
 #figure(
-  image("images/station IV.png", width: 70%),
+  image("images/station IV.png", width: 90%),
   caption: "Part Sorting",
   
 ) 
@@ -101,7 +101,7 @@ Three illuminated push buttons for starting the cycle, stopping the system, or r
 
 The control panel is connected to the PLC and the power supply via a 25-pin parallel connection.
 #figure(
-  image("images/station v.png", width: 80%),
+  image("images/station v.png", width: 90%),
   caption: "Control Panel:",
   
 ) 
@@ -115,47 +115,82 @@ To facilitate both local and remote interaction with the machine, a dual-interfa
 
 - Remote Dashboard: A custom dashboard was designed and integrated into the system architecture to allow remote monitoring and control. This web-based interface enables access to machine data and control functionalities from a home office or central monitoring location.
 
-
+#figure(
+  image("images/images.png", width: 50%),
+  caption: "HMI Root Screen",
+)<hmi>
   
 == Communucation
+as we see in @com we used an ethernet cables and a switch to connect all the Modules of our project
 #figure(
-  image("images/chaart.png", width: 70%),
+  image("images/chaart.png", width: 60%),
   caption: "The interaction between the different modules",
-)
+)<com>
 
 
 == PLC Programming - TIA Portal
 The Siemens S7-1214 AC/DC/RLY PLC was programmed using TIA Portal to monitor and control a prototype sorting machine.
 
-Key elements:
+_Refer to Appendix D for additional information._
 
-- Input signals from sensors detect part presence and type.
-
-- Output signals drive actuators based on classification logic.
-
-- Memory addresses (in Data Blocks) store:
-
-  - Total part count
-
-  - Number of parts by type
-
-  - Current machine status (e.g., idle, sorting, error)
-
-  - Error flags for specific faults (e.g., jammed part, sensor failure)
-
-These values are continuously updated and made available for external read access by the edge device. 
 #figure(
   image("images/plc 1214.png" ,width:99%)
   ,caption: "S7-1214C with I/O Module"
 )
 === PLC I/O Table 
- @fig:Tab-tags presents the list of inputs and outputs (I/O) used in the PLC program for the sorting station. Each signal is identified by a unique reference, a symbolic tag, a brief description of its function, and the corresponding address in the PLC memory (digital or analog).
+ @tab:i-tags presents the list of inputs and outputs (I/O) used in the PLC program for the sorting station. Each signal is identified by a unique reference, a symbolic tag, a brief description of its function, and the corresponding address in the PLC memory (digital or analog).
+
 
 #figure(
-  image("images/Tags.png",width: 50%),
-  caption: "Tags Table in Tia Portal"
-)<fig:Tab-tags>
-_The full list of PLC I/O addresses used in the project is provided in Appendix B, and the complete system schematic is included in Appendix C._
+  table(
+    columns: 4,
+    align: left,
+    [Reference], [Tag], [Description], [Address],
+    [1B00], [L10], [Sensor: Cylinder 1M1 retracted], [I0.0],
+    [1B01], [L11], [Sensor: Cylinder 1M1 extended], [I0.1],
+    [1B02], [mc], [Photoelectric sensor – Magazine full], [I0.2],
+    [1B03], [ms], [Micro-switch – Part out of magazine], [I0.3],
+    [1B04], [pn], [Color sensor – Black piece], [I0.4],
+    [1B05], [pm], [Inductive sensor – Metallic piece], [I0.5],
+    [2B00], [Brm], [Arm 2M1 in middle position], [I0.6],
+    [2B01], [Brd], [Arm 2M1 to the right], [I0.7],
+    [3B00], [Cvb], [Vertical conveyor at bottom position], [I1.0],
+    [3B01], [Cvh], [Vertical conveyor at top position], [I1.1],
+    [3B02], [Cvm], [Vertical conveyor at middle position], [I1.2],
+    [3B03], [L21], [Sensor: Cylinder 3M2 extended], [I1.3],
+    [9F1], [fcg], [Limit switch – Rail left], [I1.4],
+    [9F2], [fcd], [Limit switch – Rail right], [I8.2],
+    [9B01], [cfr], [Fork sensor – Rail position], [I1.5],
+    [9B02], [L31], [Sensor: Cylinder 9M2 extended], [I8.0],
+    [9B03], [-], [Photoelectric barrier (not connected)], [-],
+    [], [STOP], [STOP push button], [I8.3],
+    [], [START], [START push button], [I8.4],
+    [], [FC], [Cycle start push button], [I8.5],
+    [], [Mode I], [Mode selector – Manual], [I8.6],
+    [], [Mode II], [Mode selector – Automatic], [I8.7],
+    [3A1], [EP], [Analog sensor – Thickness measurement], [IW64],
+    [1Q00], [V1+], [Cylinder 1M1 – Extend], [Q0.0],
+    [1Q01], [V1-], [Cylinder 1M1 – Retract], [Q0.1],
+    [2Q00], [BG], [Arm 2M1 – Move Left], [Q0.2],
+    [2Q01], [BD], [Arm 2M1 – Move Right], [Q0.3],
+    [2Q02], [GV], [Activate vacuum generator 2M2], [Q0.4],
+    [], [MC], [Vertical conveyor – Up], [Q0.5],
+    [], [DC], [Vertical conveyor – Down], [Q0.6],
+    [], [V2+], [Cylinder 3M2 – Extend], [Q0.7],
+    [9M1], [M1G], [Motor 9M1 – Direction 1], [Q1.0],
+    [], [M1D], [Motor 9M1 – Direction 2], [Q1.1],
+    [], [V3+], [Cylinder 9M2 – Extend], [Q8.0],
+    [], [H_STOP], [Indicator light – STOP button], [Q8.1],
+    [], [H_START], [Indicator light – START button], [Q8.2],
+    [], [H_FC], [Indicator light – Cycle start button], [Q8.3],
+    [], [LA1], [Status light 1], [Q8.4],
+    [], [LA2], [Status light 2], [Q8.5],
+  ),
+  caption: "PLC Input and output Tags",
+)<tab:i-tags>
+
+
+ 
 
 ===  Study of Operating Modes ( GEMMA )
 In order to design a structured and safe automation sequence, we studied the system's functional behavior using the GEMMA methodology. This standard tool helps define the system’s reaction to various operational modes, including starting, stopping, initialization, emergency stop, and cycle execution.
@@ -185,7 +220,7 @@ table(
   
 ),caption: "GEMMA Modes",
 )
-_A complete illustration of these blocks and transitions is available in Appendix D,_
+_A complete illustration of these blocks and transitions is available in Appendix B,_
 
 === Sequentiel Functions Charts
 To define the sequencing and coordination of the sorting station's operations, a GRAFCET diagram (Sequential Function Chart – SFC) was developed. This graphical tool allowed for a clear and systematic representation of the system’s behavior in terms of steps (states) and transitions (conditions for change).
@@ -197,7 +232,7 @@ The logic derived from this GRAFCET in @fig:grafcet was implemented using struct
   image("images/control grafcet.png", width: 50%),
   caption: "Supervisory Sequentiel Chart",
 )<fig:grafcet>
-_For a complete overview, refer to Appendix E_
+_For a complete overview, refer to Appendix C_
 === Functions Blocks
 To ensure modularity, clarity, and ease of maintenance, the control logic for the sorting station was implemented using structured programming based on Siemens’ block architecture within the TIA Portal environment.
 
@@ -277,26 +312,25 @@ This choice aligned well with Industry 4.0 principles, enabling flexible and sca
 
 
 == Web Application 
-The web application layer is the primary interface through which the system is used by users. It is an operating control platform that combines human operators, the database, and industrial automation system (PLC). For this project, creating a responsive, secure, and extensible web application that caters to real-time machine monitoring, maintenance tracking, and data visualization was required.
+Our web application layer is the primary interface through which the system is used by users. It is an operating control platform that combines human operators, the database, and industrial automation system (PLC). For our project, creating a responsive, secure, and extensible web application that caters to real-time machine monitoring, maintenance tracking, and data visualization was required.
 === Functional requirements
-Essentially, the system must support fault reporting in real-time, user management, machine status monitoring, and communication with PLCs through Snap7. The maintenance technicians should be enabled to securely log in, enter fault reports from the dashboard, and query machine statuses. The administrator should be able to access a management interface to view all interventions, generate reports, and manage users. The system should also be capable of sending or triggering a notification to inform the maintenance staff in the event that a fault is detected. These requirements would make the application improve the efficiency of the maintenance operation and fill in the gap between the SCADA environment and web-based monitoring systems.
-=== Overview of Architecture
-This layer is built using the Django web framework, which follows the Model-View-Template (MVT) architecture. The application interacts with a PostgreSQL database and communicates with the Siemens S7-1200 PLC using the Snap7 library, allowing real-time status reading and control over the machines from the browser.
+Essentially, our system must support fault reporting in real-time, user management, machine status monitoring, and communication with PLCs through Snap7. The maintenance technicians should be enabled to securely log in, enter fault reports from the dashboard, and query machine statuses. The administrator should be able to access a management interface to view all interventions, generate reports, and manage users. The system should also be capable of sending or triggering a notification to inform the maintenance staff in the event that a fault is detected. These requirements would make our application improve the efficiency of the maintenance operation and fill in the gap between the SCADA environment and web-based monitoring systems.
+
 === Technology Stack 
-To implement an effective and scalable solution that integrates both SCADA functionalities and a modern web-based maintenance management system, a carefully selected technology stack was chosen. Each component was selected based on performance, compatibility, community support, and ease of integration.
+To implement an effective and scalable solution that integrates both SCADA functionalities and a modern web-based maintenance management system, we carefully selected the technology stack . Each component was selected based on performance, compatibility, community support, and ease of integration.
 
 *Bootstrap (UI Styling Framework)*
 
-Bootstrap was utilized to accelerate front-end development and ensure a clean, responsive design. With its prebuilt components and mobile-first grid system, it provided a consistent look across all devices while reducing the amount of custom CSS needed. This helped deliver a professional user interface suitable for factory environments with various screen sizes.
+Bootstrap was utilized to accelerate front-end development and ensure a clean, responsive design. With its prebuilt components and mobile-first grid system, it provided a consistent look across all devices while reducing the amount of custom CSS needed. This helped us to deliver a professional user interface suitable for factory environments with various screen sizes.
 This technology stack offers a balanced combination of performance, maintainability, and industrial compatibility, making it well-suited for a hybrid SCADA-CMMS platform.
 
 *Django (Back-end Framework)*
 
-Django was chosen as the back-end framework because of its robust structure, inherent security, and speedy development process. As a Python-based web framework, Django makes database management easy, handles user authentication, and HTTP requests easy. Its ORM provides easy interaction with the PostgreSQL database, and its admin interface helps in handling users and intervention records. Django's modularity also facilitates easy scaling and integration with additional features in the future.
+We chosed Django as the back-end framework because of its robust structure, inherent security, and speedy development process. As a Python-based web framework, Django makes database management easy, handles user authentication, and HTTP requests easy. Its ORM provides easy interaction with the PostgreSQL database, and its admin interface helps in handling users and intervention records. Django's modularity also facilitates easy scaling and integration with additional features in the future.
 
 *PostgreSQL (Database Management System)*
 
-PostgreSQL was chosen as the database system because of its reliability, advanced indexing techniques, and support for complex queries. It is open-source and highly compatible with Django's ORM, which ensures secure, consistent, and fast data transactions. PostgreSQL’s ability to handle large volumes of data makes it ideal for managing machine history, user activity logs, and intervention records in a production environment.
+PostgreSQL was chosen by us as the database system because of its reliability, advanced indexing techniques, and support for complex queries. It is open-source and highly compatible with Django's ORM, which ensures secure, consistent, and fast data transactions. PostgreSQL’s ability to handle large volumes of data makes it ideal for managing machine history, user activity logs, and intervention records in a production environment.
 
 #figure(
   image("images/technologies.png", width: 90%),
@@ -305,7 +339,7 @@ PostgreSQL was chosen as the database system because of its reliability, advance
 
 *Database Schema Design*
 
-The database is designed around Django’s authentication framework and extended to support CMMS features such as work order management, machine tracking, and maintenance logging, as illustrated in @erd
+We designed the database around Django’s authentication framework and we extended it to support CMMS features such as work order management, machine tracking, and maintenance logging, as illustrated in @erd
 
  Here's a breakdown of the schema components:
 
@@ -339,7 +373,7 @@ These tables define the core of the CMMS functionality:
 - *maintenance_machine:* Contains machine records in the system, each of which can be linked to multiple work orders.
 
 - *maintenance_sparepart:* Manages the inventory of spare parts. Each part can be linked to one or more interventions.
-_The full diagram is available in Appendix G._
+_The full diagram is available in Appendix E._
 
 #figure(
   image("images/ERD.png", width: 100%),

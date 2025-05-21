@@ -11,4 +11,8 @@
 
 #abb("List of Abbreviations",[
  *SFC:* Squentiel functionel chart
+
+ *MVT:* Model-View-Template 
+ 
+ *ORM:* Object-Relational Mapper
 ])
