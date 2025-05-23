@@ -41,7 +41,7 @@
  #appendix("C","SFC",[
 
   #align(center)[
-    #image("images/grafcet.drawio.png",width: 95%)
+    #image("images/grafcet.drawio.png",width: 94%)
   ]
  ])
 #appendix("D","PLC Data Sheet",[
