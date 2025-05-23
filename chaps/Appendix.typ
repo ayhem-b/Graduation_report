@@ -41,12 +41,12 @@
  #appendix("C","SFC",[
 
   #align(center)[
-    #image("images/grafcet.drawio.png")
+    #image("images/grafcet.drawio.png",width: 95%)
   ]
  ])
 #appendix("D","PLC Data Sheet",[
 #align(center)[
-  #image("images/0900766b81639d65-1.jpg",width:97% )
+  #image("images/0900766b81639d65-1.jpg",width:95% )
   #pagebreak()
   #image("images/0900766b81639d65-2.jpg")
   #pagebreak()
@@ -165,6 +165,9 @@ columns: 2,
   #image("images/User-interaction.png",width: 108%)
 ])
 
+#appendix("G","Cp-1242-7 V2 Cofiguration",[
+  #image("images/Principe.png",width: 108%)
+])
 
 
 

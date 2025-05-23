@@ -212,7 +212,6 @@ table(
     [*Block*], [*Description*],
     [F1],[ Normal production],
     [F4],[ Manual Mode],
-    [F5],[Testing Mode],
     [A1],[ Stop in initial state],
     [A5],[ Preparation for restart after failure],
     [A6],[ Returning the workpiece (PO) to initial state],
@@ -290,7 +289,7 @@ In this project, the Snap7 Python client (snap7.client) was used to establish a 
 
 The use of Snap7 allowed the web-based SCADA-HMI interface to communicate reliably with the PLC over the plant’s local network (TCP/IP), following the standard S7 communication protocol.
 #figure(
-  image("images/snap7_diagram_II.png",width: 100%),
+  image("images/snap7_diagram_II.png",width: 60%),
   caption: "snap7 client , server and partner diagram",
 )<snap>
 === Advantages of Using Snap7
@@ -309,7 +308,43 @@ This choice aligned well with Industry 4.0 principles, enabling flexible and sca
   caption: " Snap7 IOT Solution",
 )
 
+=== CP 1242-7 V2: SMS Communication Module
+The CP 1242-7 V2 is a GSM/GPRS communication processor module that is designed for Siemens S7-1200 PLC family . It's a communications gateway enabling the PLC to transmit data or alarms as SMS via mobile networks—making it very handy in industrial setups where remote fault notification is required.
 
+*Function and Role in This Project*
+
+
+In our implementation, the CP 1242-7 V2 module was configured to send SMS alerts to maintenance personnel whenever a fault is reported through the HMI or detected through the PLC logic. This ensured rapid response times and minimized machine downtime.
+#figure(
+  image("images/cp.png")
+)
+
+The workflow is as follows and is also visualised in @cp_flow:
+
++ The S7-1200 PLC detects a machine fault or receives a trigger from the web-based HMI.
+
++ A logic block (FB/FC) in the PLC prepares a message using predefined templates.
+
++ The CP 1242-7 V2 module, configured with a valid SIM card and operator settings, sends the SMS to a preconfigured list of contacts.
+
++ The maintenance team receives real-time alerts, even when off-site, enabling timely intervention.
+
+ #figure(
+ image("images/cp_flow.png"),caption :"Sms workflow")<cp_flow>
+
+*Configuration *
+
+- SMS parameters (phone numbers, message content, service center number) were set using TIA Portal as seen in @configuration.
+
+- AT command interface and data blocks (DBs) were used to control message formatting and dispatch logic.
+
+- Communication between the PLC CPU and the CP module occurs via internal instructions and parameterized blocks provided in the Siemens library
+  
+  #image("image-2.png")
+ #figure(
+   image("image-4.png"),caption:"Cp configuration"
+ )<configuration>
+_For more comprehensive coverage, consult Appendix H._.
 
 == Web Application 
 Our web application layer is the primary interface through which the system is used by users. It is an operating control platform that combines human operators, the database, and industrial automation system (PLC). For our project, creating a responsive, secure, and extensible web application that caters to real-time machine monitoring, maintenance tracking, and data visualization was required.
