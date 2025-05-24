@@ -410,3 +410,5 @@ Upon detection of a fault in a machine by a technician, the intervention form is
     image("images/flowchart.png"),caption: "The workflow"
 )<flowchart>
 
+#heading(level: 2, numbering: none)[Conclusion]
+In this chapter, we describe our web-based maintenance management system implementation, covering all steps from the establishment of the virtual environment through to deploying the user interface and integration with the PLC via Snap7. 
